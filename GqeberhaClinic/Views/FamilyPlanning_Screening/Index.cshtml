@@ -1,0 +1,152 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.FamilyPlanning_Screening>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+@if (@TempData["Result"] != null)
+{
+    <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <h3 class="modal-title"> Screening Results</h3>
+                    <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="~/images/f.png" width="200px" />
+                    <h4>@TempData["Result"]</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question4)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question6)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question7)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question8)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question9)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question10)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainUser.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                    @if(item.Question1 == 10)
+                    {
+                        <p>Yes</p>
+                    }
+                    else
+                    {
+                        <p>No</p>
+                    }
+                  
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question4)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question6)
+            </td>
+            <td>
+                    @if(item.Question7 == 0)
+                    {
+                        <p>This Week</p>
+                    }
+                    else if (item.Question7 == 3)
+                    {
+                        <p>Last Week</p>
+                    }
+                    else if (item.Question7 == 5)
+                    {
+                        <p>Last Month</p>
+                    }
+                    else
+                    {
+                        <p>More that two Months ago</p>
+                    }
+
+                    @Html.DisplayFor(modelItem => item.Question7)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question8)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question9)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question10)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ScreeningID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ScreeningID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ScreeningID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script src="~/js/site.js"></script>

@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewData["Title"] = "Patient";
+    Layout = "~/Views/Shared/_GBV.cshtml";
+}
+
+<style>
+    #dash-con {
+        background: rgba( 0, 13, 161, 0.5 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 6px );
+        -webkit-backdrop-filter: blur( 6px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+
+    .container h1 {
+        white-space: nowrap; /* Prevents text from wrapping to the next line */
+        overflow: hidden; /* Hides any overflowing text */
+        text-overflow: ellipsis; /* Truncates text with an ellipsis (...) */
+    }
+
+    #dash-con:hover {
+        background: rgba( 131, 141, 255, 0.7 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
+<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
+<h3>Patient DashBoard</h3>
+
+<div class="container-fluid pt-4 px-4">
+
+    <div class="row g-4">
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/app.png" style="width: 100px" />
+                    <h4 class="mb-2">My Sessions</h4>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Medical Records</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/Messages.png" style="width: 100px" />
+                    <h4 class="mb-2">Messages</h4>
+                </div>
+            </div>
+        </div>
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/Feed.png" style="width: 75px" />
+                    <h4 class="mb-2">feedback</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pt-4 px-4 bg-white m-2">
+    <div class="AssessmentTable text-center rounded p-4" id="AssessmentTable">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+            <h4>My Session history</h4>
+            <a href="#" class="btn btn-primary">Create Appointment</a>
+        </div>
+
+
+        <div class="table-responsive ">
+            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
+
+                <thead class="table-primary">
+                    <tr>
+                        <th> Date</th>
+                        <th> Time</th>
+                        <th>Reason of the Appointments</th>
+                        <th>Cousellor Information</th>
+                        <th>Status</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td colspan="5">No Appointments</td>
+                    </tr>
+
+                </tbody>
+
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title box-title">To Do List</h4>
+                <div class="card-content">
+                    <div class="todo-list">
+                        <div class="tdl-holder">
+                            <div class="tdl-content">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            <input type="checkbox"><i class="check-box"></i><span>defalt task, please create a medical File...</span>
+                                            <a href='#' class="fa fa-times"></a>
+                                            <a href='#' class="fa fa-pencil"></a>
+                                            <a href='#' class="fa fa-check"></a>
+                                        </label>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- /.todo-list -->
+                </div>
+            </div> <!-- /.card-body -->
+        </div><!-- /.card -->
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title box-title">Live help Chat</h4>
+                <div class="card-content">
+                    <div class="messenger-box">
+                        <ul>
+                            <li>
+                                <div class="msg-received msg-container">
+                                    <div class="avatar">
+                                        <img src="images/avatar/64-1.jpg" alt="">
+                                        <div class="send-time"></div>
+                                    </div>
+                                    <div class="msg-box">
+                                        <div class="inner-box">
+                                            <div class="name">
+                                                Admin
+                                            </div>
+                                            <div class="meg">
+                                                Welcome to Gqeberha Clinic, Dont hesitate having a chat with me
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.msg-received -->
+                            </li>
+                            <li>
+
+                            </li>
+                        </ul>
+                        <div class="send-mgs">
+                            <div class="yourmsg">
+                                <input class="form-control" type="text">
+                            </div>
+                            <button class="btn msg-send-btn">
+                                <i class="pe-7s-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div><!-- /.messenger-box -->
+                </div>
+            </div> <!-- /.card-body -->
+        </div><!-- /.card -->
+    </div>
+</div>
+

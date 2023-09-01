@@ -1,0 +1,47 @@
+﻿@model GqeberhaClinic.Models.Vaccine_Education
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Vaccine_Education</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EducationID" />
+            <div class="form-group">
+                <label asp-for="VaccineName" class="control-label"></label>
+                <input asp-for="VaccineName" class="form-control" />
+                <span asp-validation-for="VaccineName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VaccineDescription" class="control-label"></label>
+                <input asp-for="VaccineDescription" class="form-control" />
+                <span asp-validation-for="VaccineDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Purpose" class="control-label"></label>
+                <input asp-for="Purpose" class="form-control" />
+                <span asp-validation-for="Purpose" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

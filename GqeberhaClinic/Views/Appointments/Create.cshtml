@@ -1,0 +1,80 @@
+﻿@model GqeberhaClinic.Models.Appointments
+@using GqeberhaClinic.Models
+
+@{
+    ViewData["ViewTitle"] = "Create New appointments";
+    ViewData["Description"] = "Create an appointment as a patient";
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success text-center w-100 p-3 rounded" id="tempdata" role="alert">
+        <h5 class="text-white">@TempData["Success"]</h5>
+    </div>
+}
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Date_Time" class="control-label"></label>
+                <input asp-for="Date_Time" class="form-control" />
+                <span asp-validation-for="Date_Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label"></label>
+                <select asp-for="Reason" class="form-control">
+                    <option value="Counselling">Counselling</option>
+                    <option value="Chronic">Chronic Medication </option>
+                    <option value="GBV">Gender based Violence</option>
+                </select>
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-striped caption-top">
+              <caption>List of Appointments</caption>
+            <thead class="table-primary">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_Time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Reason)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Appointments item in ViewBag.App)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Time)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

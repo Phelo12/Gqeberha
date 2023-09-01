@@ -1,0 +1,88 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.Medical_File>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+
+
+<div class="text-center bg-primary p-2">
+    <h4 class="text-white">Medical File</h4>
+</div>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Patient Full Name
+            </th>
+            <th>
+               Gender
+            </th>
+            <th>
+                BirthDate
+            </th>
+            <th>
+                IDNumber
+            </th>
+            <th>
+                AddressLine1
+            </th>
+            <th>
+                EmergencyPerson
+            </th>
+            <th>
+                EmergencyContactNo
+            </th>
+
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.mainUser.FirstName
+                    @item.mainUser.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressLine1)
+                </td>
+             
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyPerson)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContactNo)
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li> <a class="dropdown-item" asp-controller="Medical_File" asp-action="Patient_File" asp-route-id="@item.FileID">Full File</a></li>
+                            <li> <a class="dropdown-item" asp-controller="Records" asp-action="Create" asp-route-id="@item.FileID">Add Rercords</a></li>
+                            <li><a class="dropdown-item" asp-controller="Records" asp-action="Index" asp-route-id="@item.FileID">View Rercords</a></li>
+                            
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

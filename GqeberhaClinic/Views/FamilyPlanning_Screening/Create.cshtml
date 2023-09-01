@@ -1,0 +1,202 @@
+﻿@model GqeberhaClinic.Models.FamilyPlanning_Screening
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div class="bg-primary p-3 mb-2">
+    <h4 class="text-white text-center">Preventioon Method Screening</h4>
+</div>
+<div class="container-fluid bg-white">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row p-3">
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Question1" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question1" value="10" class="form-check-input" type="radio"  id="question1Yes">
+                        <label class="form-check-label" for="question1Yes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question1" value="0" class="form-check-input" type="radio"  id="question1No">
+                        <label class="form-check-label" for="question1No">
+                            No
+                        </label>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label asp-for="Question2" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question2" value="10" class="form-check-input" type="radio"  id="question2Yes">
+                        <label class="form-check-label" for="question2Yes">
+                           Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question2" value="0" class="form-check-input" type="radio" id="question2No">
+                        <label class="form-check-label" for="question2No">
+                             No
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question3" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question3" value="10" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question3" value="0" class="form-check-input" type="radio"  id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question4" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question4" value="10" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label  class="form-check-label" for="flexRadioDefault1">
+                          Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question4" value="0" class="form-check-input" type="radio"  id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question4" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question5" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question5" value="0" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question5" value="10" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                           No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question5" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Question6" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question6" value="10" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question6" value="0" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question6" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question7" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question7" value="0" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                             This Weeek
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question7" value="3" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                           Last Week
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question7" value="5" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Last Month
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question7" value="10" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            More that two Months ago
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question7" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question8" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question8" value="0" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                             Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question8" value="10" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                           No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question8" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question9" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question9" value="10" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question9" value="0" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question9" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Question10" class="control-label"></label>
+                    <div class="form-check">
+                        <input asp-for="Question10" value="10" class="form-check-input" type="radio"  id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Question10" value="0" class="form-check-input" type="radio"  id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                        </label>
+                    </div>
+                    <span asp-validation-for="Question10" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+     
+        <div class="form-group">
+            <input type="submit" value="Screen" class="btn btn-primary mb-2" />
+        </div>
+    </form>
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

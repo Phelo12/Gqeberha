@@ -1,0 +1,170 @@
+﻿@using GqeberhaClinic.Models
+@{
+    ViewData["Title"] = "Counselling";
+    Layout = "~/Views/Shared/_Counselling.cshtml";
+}
+
+<div class="bg-primary ">
+    <h1 class="m-1 text-center text-white">Manage Appointment for Counselling</h1>
+</div>
+
+<button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    New Appointment
+</button>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="exampleModalLabel">Add new Counselling Appointment</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <partial name="/Views/Appointments/Counselling_Appointment.cshtml" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success text-center text-white p-1 round">
+        <h3>@TempData["Success"]</h3>
+    </div>
+}
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Patient Information
+            </th>
+            <th>
+                Appointment Date and Time
+            </th>
+          
+            <th>
+                Status
+            </th>
+            <th>
+                Date Created
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Appointments item in ViewBag.Appointment)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName) @Html.DisplayFor(modelItem => item.Patient.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Time)
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @if (item.Status == "Pending")
+                    {
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.AppointmentID">
+                            Accept Appointment
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-@item.AppointmentID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.AppointmentID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="exampleModalLabel-@item.AppointmentID">Accept Counselling Appointment Confirmation</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure you want to Accept this appointment</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" asp-action="Accept_Conselling_Appointment" asp-route-id="@item.AppointmentID">Accept Appointment</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (item.Status == "Accepted")
+                    {
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.AppointmentID">
+                            Create Session
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-@item.AppointmentID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.AppointmentID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="exampleModalLabel-@item.AppointmentID">Accept Counselling Appointment Confirmation</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      @*   @model GqeberhaClinic.Models.Counselling_Sessions
+                                        <div class="col-12">
+                                            <form asp-action="Create" asp-controller="Counselling_Sessions">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="row">
+                                                    <div class="form-group col-md-6 col-sm-12">
+                                                        <label asp-for="SessionDate" class="control-label"></label>
+                                                        <input asp-for="SessionDate" class="form-control" />
+                                                        <span asp-validation-for="SessionDate" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-6 col-sm-12">
+                                                        <label asp-for="SessionTime" class="control-label"></label>
+                                                        <input asp-for="SessionTime" class="form-control" />
+                                                        <span asp-validation-for="SessionTime" class="text-danger"></span>
+                                                    </div>
+                                            </div>
+                                               
+                                                <div class="form-group">
+                                                    <label hidden asp-for="AppointemtID" class="control-label"></label>
+                                                    <input hidden asp-for="AppointemtID" value="@item.AppointmentID" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Notes" class="control-label"></label>
+                                                    <textarea asp-for="Notes" class="form-control"></textarea>
+                                                 
+                                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" value="Create Session" class="btn btn-primary m-2" />
+                                                </div>
+                                            </form>
+                                </div> *@
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (item.Status == "Session Created")
+                    {
+                        <a asp-action="index" asp-controller="Counselling_Sessions" class="btn btn-primary mb-1">
+                            View Sessions
+                        </a>
+                     
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

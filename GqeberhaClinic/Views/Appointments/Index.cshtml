@@ -1,0 +1,261 @@
+﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Appointments
+@{
+
+
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+
+<div class="text-center bg-primary p-2">
+    <h4 class="text-white">My  Appointments</h4>
+</div>
+@if (User.IsInRole("Nurse"))
+{
+
+    <div class="col-9">
+        <p>
+            <a class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">New Appointment</a>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Appointment For a Patient</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="/Views/Appointments/Create_Partial.cshtml" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p>
+    </div>
+}
+else
+{
+
+    <div class="col-9">
+        <p>
+            <a class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">New Appointment</a>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Appointment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="/Views/Appointments/Create_Partial.cshtml" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </p>
+    </div>
+
+}
+
+@if (TempData["Success"] != null)
+{
+    <div id="myModal" class="modal fade" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5 class="text-dark text-center">@TempData["Success"]</h5>
+                    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                    <lord-icon src="https://cdn.lordicon.com/hslmvbwi.json"
+                               trigger="hover"
+                               colors="primary:#109121"
+                               style="width:250px;height:250px">
+                    </lord-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<table id="MyTable" class="table">
+    <thead class="table table-stripped">
+        <tr>
+            <th>
+                Appointment Date_Time
+            </th>
+            <th>
+                Reason for appointment
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Appointments item in ViewBag.Appointmnet)
+        {
+            <tr>
+                <td>
+                    @item.Date_Time
+                </td>
+
+                <td>
+                @item.Reason
+                </td>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @if (item.Status == "New")
+                    {
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Delete">
+                                        Delete Appointment
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Que-@item.AppointmentID">
+                                        Edit Appointment
+                                    </a>
+                                </li>
+                                <li></li>
+
+                            </ul>
+                        </div>
+                       
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="DeleteLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h5 class="modal-title text-danger" id="DeleteLabel">Delete Appointment</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/vhypyykg.json"
+                                                   trigger="hover"
+                                                   colors="primary:#e83a30,secondary:#c71f16"
+                                                   style="width:250px;height:250px">
+                                        </lord-icon>
+                                        <h4>Are you sure to delete this appointment created on @item.CreatedDate ?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                        <a asp-action="Delete_Appointment" asp-route-id="@item.AppointmentID" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                 
+
+                       
+                        <div class="modal fade" id="Que-@item.AppointmentID" tabindex="-1" aria-labelledby="Que-@item.AppointmentID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="Que-@item.AppointmentID">Postpone Appointment</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form asp-action="Edited">
+                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                    <input hidden value="@item.AppointmentID" asp-for="AppointmentID" />
+                                                    <div class="form-group">
+                                                        <label asp-for="Date_Time" class="control-label">New Date and Time</label>
+                                                        <input asp-for="Date_Time" class="form-control" />
+                                                        <span asp-validation-for="Date_Time" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" value="Edit Appointment" class="btn btn-primary" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else if (item.Status == "Queued")
+                    {
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Delete">
+                                       View Queued Info
+                                    </a>
+                                </li>
+                                <li></li>
+
+                            </ul>
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="DeleteLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h5 class="modal-title text-danger" id="DeleteLabel">Delete Appointment</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/vhypyykg.json"
+                                                   trigger="hover"
+                                                   colors="primary:#e83a30,secondary:#c71f16"
+                                                   style="width:250px;height:250px">
+                                        </lord-icon>
+                                        <h4>Are you sure to delete this appointment created on @item.CreatedDate ?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                                        <a asp-action="Delete_Appointment" asp-route-id="@item.AppointmentID" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<script>
+    var fromDateInput = document.getElementById('fromDate');
+    fromDateInput.min = new Date().toISOString().split('T')[0];
+
+    
+</script>

@@ -1,0 +1,105 @@
+﻿@using GqeberhaClinic.Models
+
+@{
+    ViewData["ViewTitle"] = "List of My Counselling appointments";
+    ViewData["Description"] = "All  Counselling Appointments for the patient";
+    ViewData["Title"] = "Counselling";
+    Layout = "~/Views/Shared/_Counselling.cshtml";
+}
+
+<button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create Appointment
+</button>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="exampleModalLabel">Request new Counselling Appointment</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <partial name="/Views/Appointments/Counselling_Appointment.cshtml" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>
+            Appointment Date_Time
+        </th>
+        <th>
+            Reason for appointment
+        </th>
+        <th>
+            Status
+        </th>
+
+        <th>Action</th>
+    </tr>
+</thead>
+    <tbody>
+        @foreach (Appointments item in ViewBag.Appointment)
+        {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Time)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+              
+                <td>
+
+                <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.AppointmentID">
+                        Delete Appointment
+                    </button>
+                    <!-- Button trigger modal -->
+                    <!-- Modal -->
+                <div class="modal fade" id="exampleModal-@item.AppointmentID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.AppointmentID" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title text-center" id="exampleModalLabel-@item.AppointmentID">Delete Counselling Appointment</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                   
+                                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
+                                               trigger="loop"
+                                               delay="1000"
+                                               colors="primary:#121331,secondary:#08a88a"
+                                               style="width:200px;height:200px">
+                                    </lord-icon>
+                                </div>
+                                <div class="modal-footer">
+                                <a class="btn btn-danger" asp-action="Delete_Conselling_Appointment" asp-route-id="@item.AppointmentID">Delete Appointment</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

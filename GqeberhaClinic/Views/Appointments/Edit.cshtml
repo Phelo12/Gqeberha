@@ -1,0 +1,20 @@
+﻿@model GqeberhaClinic.Models.Appointments
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AppointmentID" />
+            <div class="form-group">
+                <label asp-for="Date_Time" class="control-label"></label>
+                <input asp-for="Date_Time" class="form-control" />
+                <span asp-validation-for="Date_Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Postpone" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

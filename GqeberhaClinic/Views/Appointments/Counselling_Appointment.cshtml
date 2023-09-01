@@ -1,0 +1,23 @@
+﻿@model GqeberhaClinic.Models.Appointments
+
+<div class="row">
+   
+        <form asp-action="Counselling_Appointment" asp-controller="Appointments">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label asp-for="Date_Time" class="control-label"></label>
+                <input asp-for="Date_Time" class="form-control" />
+                <span asp-validation-for="Date_Time" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <img src="~/images/calendar.png" width="200px" />
+            </div>
+        </div>
+        <div class="form-group">
+                <input type="submit" value="Add New Appoiment" class="btn btn-primary m-2" />
+            </div>
+        </form>
+
+</div>
+

@@ -1,0 +1,229 @@
+﻿@using GqeberhaClinic.Models
+@using Microsoft.AspNetCore.Identity
+@using GqeberhaClinic.Areas.Identity.Data
+
+@inject SignInManager<GqebheraUser> SignInManager
+@inject UserManager<GqebheraUser> UserManager
+@{
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+<div class=" text-center bg-primary p-2">
+    <h3 class="text-center text-white">My Medical File</h3>
+</div>
+@if (TempData["Success"] != null)
+{
+    <div id="myModal" class="modal fade" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5 class="text-dark text-center">@TempData["Success"]</h5>
+                    <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                    <lord-icon src="https://cdn.lordicon.com/hslmvbwi.json"
+                               trigger="hover"
+                               colors="primary:#109121"
+                               style="width:250px;height:250px">
+                    </lord-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<style>
+    body {
+        background: #f7f7ff;
+        margin-top: 20px;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid transparent;
+        border-radius: .25rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+    }
+
+    .me-2 {
+        margin-right: .5rem !important;
+    }
+</style>
+<div class="d-grid gap-2 d-md-flex justify-content-md-start mt-3">
+
+    <button class="btn btn-primary m-1" type="button">My Medical Records</button>
+    <button class="btn btn-success m-1" type="button"><i class="bi bi-printer-fill"></i> Report</button>
+</div>
+@foreach (Medical_File item in ViewBag.File)
+{
+    <div class="container ">
+        <div class="main-body mt-3 ">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                @if (UserManager.GetUserAsync(User).Result.MyPicture != null)
+                                {
+                                    <a asp-area="Identity" asp-page="/Account/Manage/Index"><img class="rounded-circle p-1" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.MyPicture))"></a>
+                                    <div class="mt-3">
+                                        <h4>@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</h4>
+                                        <p class="text-muted font-size-sm">@item.AddressLine1, @item.Province, @item.Country</p>
+                                        <a asp-action="Edit" asp-controller="Medical_File" asp-route-Id="@item.FileID" class="btn btn-primary">Edit File</a>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <img src="~/images/icons8-user-100.png" alt="Admin" class="rounded-circle p-1 " width="110">
+                                    <div class="mt-3">
+                                        <h4>@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</h4>
+
+                                        <p class="text-muted font-size-sm">@item.AddressLine1, @item.Province, @item.Country</p>
+                                        <a asp-action="Edit" asp-route-id="@item.FileID" class="btn btn-primary">Edit File</a>
+
+                                    </div>
+                                }
+
+
+                            </div>
+                            <hr class="my-4">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="text-center">Personal Infomation</h5>
+                            <hr>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Id Number</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="@item.IDNumber">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Gender</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="@item.Gender">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" value="@UserManager.GetUserAsync(User).Result.Email">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                @if (UserManager.GetUserAsync(User).Result.PhoneNumber == null)
+                                {
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="text" class="form-control" placeholder="Add Phone Number">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-9 text-secondary">
+                                        <input type="text" class="form-control" value="@UserManager.GetUserAsync(User).Result.PhoneNumber">
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="text-center text-danger align-items-center mb-3">Medical Infomartion</h5>
+                                <hr class="text-danger">
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label class="control-label">Blood Type</label>
+                                        <input value="@item.BloodType" class="form-control" />
+
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label class="control-label">Allergies</label>
+                                        <input value="@item.Allergies" class="form-control" />
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">AnySurgeries</label>
+                                    <input value="@item.AnySurgeries" class="form-control" />
+
+                                </div>
+                                <div class="form-group">
+                                    <label a class="control-label">Extra Notes</label>
+                                    <input value="@item.ExtraNotes" class="form-control" />
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="text-center mb-3">Emergency Person Infomartion</h5>
+                                <hr>
+                                <div>
+                                    <div class="form-group">
+                                        <label class="control-label"> Full Names <strong><span class="text-danger text-end"></span></strong></label>
+                                        <input value="@item.EmergencyPerson" class="form-control" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Contact number <strong><span class="text-danger text-end"> *</span></strong></label>
+                                        <input value="@item.EmergencyContactNo" class="form-control" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Reletionship <strong><span class="text-danger text-end"> *</span></strong></label>
+                                    <input value="@item.Relationship" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+
+

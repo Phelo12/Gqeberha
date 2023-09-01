@@ -1,0 +1,74 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.Appointments_Ques>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+
+<div class="text-center bg-primary p-2">
+    <h4 class="text-white">Queued Appointment</h4>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="MyTable" class="table">
+    <thead>
+        <tr>
+            <th>
+               Patient Information
+            </th>
+            <th>
+                Date and time
+            </th>
+            <th>
+                Reason for appointment
+            </th>
+            <th>
+               Delay time
+            </th>
+            <th>
+                Block/Room Number
+            </th>
+            <th>
+                Doctor
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+           @*  <th></th> *@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Appointments.Patient.FirstName @item.Appointments.Patient.LastName
+            </td>
+            <td>
+                @item.Appointments.Date_Time
+            </td>
+            <td>
+                    @item.Appointments.Reason
+            </td>
+            <td>
+                    @item.Time.ToString("HH:MM")
+            </td>
+            <td>
+                    @item.RoomNumber
+                </td>
+                <td>
+                   @item.Clinician
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+           @*  <td>
+                <a asp-action="Edit" asp-route-id="@item.QueID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.QueID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.QueID">Delete</a>
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>
