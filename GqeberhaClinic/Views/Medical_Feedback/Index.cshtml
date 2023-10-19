@@ -1,0 +1,141 @@
+﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Medical_Feedback
+
+@{
+    ViewData["ViewTitle"] = "My Medical Feed back";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Chronic.cshtml";
+}
+
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add New Feed
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Medical Feedback</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="PrescresptionID" class="control-label"></label>
+                            <select asp-for="PrescresptionID" class="form-control">
+                                @foreach (Prescription i in ViewBag.Medicine)
+                                {
+                                    <option value="@i.Id">@i.MedicationName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="PrescresptionID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Feedback" class="control-label">Please Choose Prescripted Medicine:</label>
+                            <input asp-for="Feedback" class="form-control" />
+                            <span asp-validation-for="Feedback" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Add Feedback" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Medicine Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feedback)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FeedbackDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorsFeedback)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnsweredDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Medical_Feedback item in ViewBag.Feed)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prescription.MedicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Feedback)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FeedbackDate)
+                </td>
+                <td>
+                    @if (item.DoctorsFeedback == null)
+                    {
+                        <p>Not Provided</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.DoctorsFeedback)
+                    }
+                </td>
+                <td>
+                    @if (item.DoctorsFeedback == null)
+                    {
+                        <p>Not set</p>
+                    }
+                    else
+                    {
+                    @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                    @Html.DisplayFor(modelItem => item.Doctor.LastName)
+                    }
+                </td>
+                <td>
+                    @if (item.DoctorsFeedback == null)
+                    {
+                        <p>Not set</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.AnsweredDate)
+                    }
+
+                </td>
+
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.FeedbackID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -68,6 +68,11 @@ app.UseEndpoints(end =>
         pattern: "Records/Create/{FileID?}",
         defaults: new { Controller = "Records", action = "Create" }
         );
+    end.MapControllerRoute(
+        name: "File",
+        pattern: "Medical_File/Patient_File/{FileID?}",
+        defaults: new { Controller = "Medical_File", action = "Patient_File" }
+        );
 });
 //assigning admin role to one user only
 using (var scope = app.Services.CreateScope())

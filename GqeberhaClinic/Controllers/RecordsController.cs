@@ -21,13 +21,47 @@ namespace GqeberhaClinic.Controllers
         }
 
         // GET: Records
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
-            ViewBag.Alert = alert;
-            var applicationDbContext = _context.Records.Include(r => r.File).Include(r => r.Nurse);
-            return View(await applicationDbContext.ToListAsync());
+            if(id == null)
+            {
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Records.Include(r => r.File).Include(r => r.Nurse).Include(a => a.File.mainUser);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Records.Include(r => r.File).Include(r => r.Nurse).Include(a => a.File.mainUser).Where(a => a.FileID == id);
+                return View(await applicationDbContext.ToListAsync());
+            }
+        
+        }
+        public async Task<IActionResult> My_Records()
+        {
+           
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Records.Include(r => r.File).Include(r => r.Nurse).Include(a => a.File.mainUser).Where(a => a.File.PatientID == user);
+                return View(await applicationDbContext.ToListAsync());
+            
+        
+        }
+        public async Task<IActionResult> Report()
+        {
+           
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Records.Include(r => r.File).Include(r => r.Nurse).Include(a => a.File.mainUser);
+                return View(await applicationDbContext.ToListAsync());
+          
+
         }
 
         // GET: Records/Details/5

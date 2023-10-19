@@ -4,17 +4,15 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Walk-In.cshtml";
 }
+<div class="text-center bg-primary p-2 m-2">
+    <h4 class="text-white">Medical Records</h4>
+</div>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table id="MyTable" class="table mt-2">
+    <thead class="table table-stripped">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.File)
+                Patient Information
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BloodPressure)
@@ -37,17 +35,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.RecordDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nurse)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.File.AddressLine1)
+                @Html.DisplayFor(modelItem => item.File.mainUser.FirstName)
+                @Html.DisplayFor(modelItem => item.File.mainUser.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BloodPressure)
@@ -68,16 +63,14 @@
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RecordDate)
+                @item.RecordDate.ToString("dd/MMMM/yyyy")
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nurse.Id)
-            </td>
-            <td>
+          
+@*             <td>
                 <a asp-action="Edit" asp-route-id="@item.RecordsID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.RecordsID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RecordsID">Delete</a>
-            </td>
+            </td> *@
         </tr>
 }
     </tbody>

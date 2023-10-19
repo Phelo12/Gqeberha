@@ -3,7 +3,7 @@
 @if (User.IsInRole("Nurse"))
 {
     <div class="row">
-        <div class="col-md-6 ">
+        <div class="col-md-12">
             <form asp-action="Create_Partial">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -32,13 +32,11 @@
                     <span asp-validation-for="Reason" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create Appointment" class="btn btn-primary" />
+                    <input type="submit" value="Create Appointment" class="btn btn-primary m-2"/>
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
-            <img class="rounded mx-auto d-block" src="~/images/appointment-removebg-preview.png" style="width:150px" />
-        </div>
+      
     </div>
 }
 else

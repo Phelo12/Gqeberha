@@ -1,0 +1,121 @@
+﻿@using GqeberhaClinic.Areas.Identity.Data;
+@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.MedicalRefill
+@{
+    ViewData["ViewTitle"] = "My Medical Prescriptions";
+    ViewData["Description"] = "List of my medical prescriptions by the doctor";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Chronic.cshtml";
+}
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+
+
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Doctor Information
+            </th>
+            <th>
+                Medication Name
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Date of prescription
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Prescription item in ViewBag.Pre)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                    @Html.DisplayFor(modelItem => item.Doctor.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dosage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatePrescribed)
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
+                        Request Refill
+                    </button>
+                    <a asp-action="Index" asp-controller="MedicalRefills" class="btn btn-success" asp-rout-itemid="@item.Id">View Requests</a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Request medication refill</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="row modal-body">
+                                    <div class="col-md-6">
+                                        <form asp-controller="MedicalRefills" asp-action="Create">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label asp-for="QuantityRequested" class="control-label"></label>
+                                                <input asp-for="QuantityRequested" class="form-control" />
+                                                <span asp-validation-for="QuantityRequested" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Notes" class="control-label"></label>
+                                                <input asp-for="Notes" class="form-control" />
+                                                <span asp-validation-for="Notes" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input hidden  value="@item.Id" asp-for="PrescriptionId" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Request" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <img src="~/images/request.png" style="width: 300px" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

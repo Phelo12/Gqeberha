@@ -1,0 +1,211 @@
+﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.MedicalRefill
+@{
+    ViewData["ViewTitle"] = "List of all Medical Refill Request Refill";
+    ViewData["Description"] = " All Medical Refill Requests made by patients";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Chronic.cshtml";
+}
+
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+
+
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Patient Full Name
+            </th>
+            <th>
+                Prescriped Medication Name
+            </th>
+
+
+            <th>
+                Quantity Requested
+            </th>
+            <th>
+                Request Date
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Approval/Decline Date
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MedicalRefill item in ViewBag.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prescription.Patient.FirstName)
+                    @Html.DisplayFor(modelItem => item.Prescription.Patient.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prescription.MedicationName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+
+                    @if (item.ApprovalDate == null)
+                    {
+                        <p>Not Set</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.ApprovalDate)
+                    }
+                </td>
+
+                <td>
+                    @if (item.Status == RefillStatus.Pending)
+                    {
+
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#Accept-@item.Id">
+                            Approve 
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="Accept-@item.Id" tabindex="-1" aria-labelledby="Accept-@item.Id" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Accept Request</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+
+                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/cgzlioyf.json"
+                                                   trigger="loop"
+                                                   delay="2000"
+                                                   style="width:200px;height:200px">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-prumary" asp-action="Accept" asp-route-id="@item.Id">Accept Request</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#exmpleModal-@item.Id">
+                            Decline 
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exmpleModal-@item.Id" tabindex="-1" aria-labelledby="exmpleModalLabel-@item.Id" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="exmpleModalLabel-@item.DoctorsID">Decline Request</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+
+                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
+                                                   trigger="loop"
+                                                   delay="1000"
+                                                   colors="primary:#121331,secondary:#08a88a"
+                                                   style="width:200px;height:200px">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger" asp-action="Decline" asp-route-id="@item.Id">Decline Request</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    } 
+                    @if (item.Status == RefillStatus.Approved)
+                    {
+
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#Accept-@item.Id">
+                            Packaging Medication
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="Accept-@item.Id" tabindex="-1" aria-labelledby="Accept-@item.Id" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Accept Request</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+
+                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/ofwxettw.json"
+                                                   trigger="loop"
+                                                   delay="2000"
+                                                   style="width:250px;height:250px">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" asp-action="Packaging" asp-route-id="@item.Id">In-Packaging Status</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    }      @if (item.Status == RefillStatus.Packaging)
+                    {
+
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#Accept-@item.Id">
+                            Ready for collection
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="Accept-@item.Id" tabindex="-1" aria-labelledby="Accept-@item.Id" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Ready For Collection</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+
+                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
+                                        <lord-icon src="https://cdn.lordicon.com/ofwxettw.json"
+                                                   trigger="loop"
+                                                   delay="2000"
+                                                   style="width:250px;height:250px">
+                                        </lord-icon>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" asp-action="Collection" asp-route-id="@item.Id">Ready for collection</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

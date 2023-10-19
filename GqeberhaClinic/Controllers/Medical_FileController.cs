@@ -28,10 +28,22 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
             ViewBag.Alert = alert;
-            var applicationDbContext = _context.Medical_File.Include(m => m.mainUser);
+           ViewBag.Files = _context.Medical_File.Include(m => m.mainUser).ToList();
             ViewBag.date = DateTime.Now.ToString("dd/MMM/yyyy HH:MM");
-            return View(await applicationDbContext.ToListAsync());
+            return View();
         }
+        public async Task<IActionResult> Reports()
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Date = DateTime.Now.ToString("dd/MMMM/yyyy");
+            ViewBag.Time = DateTime.Now.ToString("HH:MM");
+            ViewBag.Alert = alert;
+            ViewBag.Files = _context.Medical_File.Include(m => m.mainUser).ToList();
+            ViewBag.date = DateTime.Now.ToString("dd/MMM/yyyy HH:MM");
+            return View();
+        }
+        [HttpGet]
         public async Task<IActionResult> Patient_File(int? File)
         {
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -44,11 +56,22 @@ namespace GqeberhaClinic.Controllers
             }
             
             return View();
-        } public async Task<IActionResult> My_File()
+        } 
+        public async Task<IActionResult> My_File()
         {
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            ViewBag.File = _context.Medical_File.Where(a => a.PatientID == user).Include(m => m.mainUser).ToList();
+            return View();
+        }   public async Task<IActionResult> My_File_Report()
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Date = DateTime.Now.ToString("dd/MMMM/yyyy");
+            ViewBag.Time = DateTime.Now.ToString("HH:MM");
             ViewBag.Alert = alert;
             ViewBag.File = _context.Medical_File.Where(a => a.PatientID == user).Include(m => m.mainUser).ToList();
             return View();

@@ -14,6 +14,9 @@ namespace GqeberhaClinic.Data
         public DbSet<UserInformation> users { get; set; }
 		public DbSet<Alert> Alerts { get; set; }
         public DbSet<GqeberhaClinic.Models.Appointments>? Appointments { get; set; }
+        public DbSet<GqeberhaClinic.Models.MedicalRefill>? MedicalRefill { get; set; }
+        public DbSet<GqeberhaClinic.Models.Medical_Feedback>? Medical_Feedback { get; set; }
+        public DbSet<GqeberhaClinic.Models.Prescription>? Prescription { get; set; }
         public DbSet<GqeberhaClinic.Models.Medical_File>? Medical_File { get; set; }
 		public DbSet<GqeberhaClinic.Models.Vaccine_Education>? Vaccine_Education { get; set; }
 		public DbSet<GqeberhaClinic.Models.FamilyPlanning_Screening>? FamilyPlanning_Screening { get; set; }

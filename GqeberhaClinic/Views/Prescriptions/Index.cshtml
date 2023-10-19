@@ -1,0 +1,220 @@
+﻿@using GqeberhaClinic.Areas.Identity.Data;
+@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Prescription
+@{
+    ViewData["ViewTitle"] = "List of Medical Prescriptions";
+    ViewData["Description"] = "Medical Prescriptions by the doctor";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Chronic.cshtml";
+}
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create Prescription
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Prescription</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="PatientId" class="control-label">Select Patient:</label>
+                            <select asp-for="PatientId" class="form-control">
+                                @foreach (GqebheraUser item in ViewBag.Patients)
+                                {
+                                    <option value="@item.Id">@item.FirstName @item.LastName </option>
+                                }
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="MedicationName" class="control-label">Medication Name</label>
+                            <input asp-for="MedicationName" class="form-control" />
+                            <span asp-validation-for="MedicationName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Dosage" class="control-label"></label>
+                            <input asp-for="Dosage" class="form-control" />
+                            <span asp-validation-for="Dosage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Duration" class="control-label"></label>
+                            <input asp-for="Duration" class="form-control" />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Notes" class="control-label"></label>
+                            <input asp-for="Notes" class="form-control" />
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+                      
+                      
+                        <div class="form-group">
+                            <input type="submit" value="Add Prescription" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Patient Information
+            </th>
+            <th>
+                MedicationName
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Date of prescription
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Prescription item in ViewBag.Pre)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                    @Html.DisplayFor(modelItem => item.Patient.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dosage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+
+                <td>
+                    @item.DatePrescribed
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
+                        Edit Prescription
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Edit Prescription</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-12">
+                                        <form asp-action="Edit">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <input value="@item.Id" type="hidden" asp-for="Id" />
+                                                <label asp-for="PatientId" class="control-label">Select Patient:</label>
+                                                <select asp-for="PatientId" class="form-control">
+                                                    @foreach (GqebheraUser item1 in ViewBag.Patients)
+                                                    {
+                                                        <option value="@item1.Id">@item1.FirstName @item1.LastName </option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label asp-for="MedicationName" class="control-label">Medication Name</label>
+                                                <input value="@item.MedicationName" asp-for="MedicationName" class="form-control" />
+                                                <span asp-validation-for="MedicationName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Dosage" class="control-label"></label>
+                                                <input value="@item.Dosage" asp-for="Dosage" class="form-control" />
+                                                <span asp-validation-for="Dosage" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Duration" class="control-label"></label>
+                                                <input value="@item.Duration" asp-for="Duration" class="form-control" />
+                                                <span asp-validation-for="Duration" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Notes" class="control-label"></label>
+                                                <input value="@item.Notes" asp-for="Notes" class="form-control" />
+                                                <span asp-validation-for="Notes" class="text-danger"></span>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <input type="submit" value="Edit Prescription" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#Delete-@item.Id">
+                        Delete
+                    </button>
+                    <!-- Button trigger modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="Delete-@item.Id" tabindex="-1" aria-labelledby="DeleteModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-center" id="DeleteModalLabel-@item.Id">Confirmation for Deleting Prescription</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Are you sure you wan to delete this Prescription?</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

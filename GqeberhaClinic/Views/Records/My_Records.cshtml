@@ -1,0 +1,78 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.Records>
+
+@{
+    ViewData["Title"] = "My Medical Records";
+    Layout = "~/Views/Shared/_Walk-In.cshtml";
+}
+<div class="text-center bg-primary p-2 m-2">
+    <h4 class="text-white">My Medical Records</h4>
+</div>
+
+<table id="MyTable" class="table mt-2">
+    <thead class="table table-stripped">
+        <tr>
+            <th>
+                Added By(Nurse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodPressure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeartRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Temperature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nurse.FirstName)
+                    @Html.DisplayFor(modelItem => item.Nurse.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodPressure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeartRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temperature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Height)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @item.RecordDate.ToString("dd/MMMM/yyyy")
+                </td>
+
+                @*             <td>
+            <a asp-action="Edit" asp-route-id="@item.RecordsID">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.RecordsID">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.RecordsID">Delete</a>
+            </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

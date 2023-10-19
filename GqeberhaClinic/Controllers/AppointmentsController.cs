@@ -361,6 +361,7 @@ namespace GqeberhaClinic.Controllers
                     appoint.Date_Time = appointments.Date_Time;
                     _context.Update(appoint);
                     await _context.SaveChangesAsync();
+
                     TempData["Success"] = "Appointment has been Edited";
                     TempData["UpdateType"] = "success";
                     var patient = _context.Users.Where(a => a.Id == appoint.PatientID).FirstOrDefault();

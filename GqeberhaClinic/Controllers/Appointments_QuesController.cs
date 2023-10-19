@@ -21,14 +21,25 @@ namespace GqeberhaClinic.Controllers
         }
 
         // GET: Appointments_Ques
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-
-            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
-            ViewBag.Alert = alert;
-            var applicationDbContext = _context.Appointments_Ques.Include(a => a.Appointments).Include(a => a.Appointments.Patient);
-            return View(await applicationDbContext.ToListAsync());
+            if(id == null)
+            {
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Appointments_Ques.Include(a => a.Appointments).Include(a => a.Appointments.Patient).OrderByDescending(a => a.dateOFQue);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+                ViewBag.Alert = alert;
+                var applicationDbContext = _context.Appointments_Ques.Include(a => a.Appointments).Include(a => a.Appointments.Patient).Where(a => a.AppointmentID == id).OrderByDescending(a => a.dateOFQue);
+                return View(await applicationDbContext.ToListAsync());
+            }
+         
         }
 
         // GET: Appointments_Ques/Details/5
@@ -91,7 +102,10 @@ namespace GqeberhaClinic.Controllers
             ViewData["AppointmentID"] = new SelectList(_context.Appointments, "AppointmentID", "Reason", appointments_Ques.AppointmentID);
             ViewData["ClinicianID"] = new SelectList(_context.Users, "Id", "Id", appointments_Ques.ClinicianID);
             return View(appointments_Ques);
-        }   public async Task<IActionResult> Create(Appointment_QueVM appointments_Ques)
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create1(Appointment_QueVM appointments_Ques)
         {
             if (appointments_Ques.RoomNumber !=null && appointments_Ques.ClinicianID != null)
             {
