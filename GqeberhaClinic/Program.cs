@@ -138,4 +138,27 @@ using (var scope = app.Services.CreateScope())
     }
 
 }
+using (var scope = app.Services.CreateScope())
+{
+    var userManager =
+
+    scope.ServiceProvider.GetRequiredService<UserManager<GqebheraUser>>();
+    string firstName = "Liyema";
+    string lastName = "Yake";
+    string email = "LiyemaY@gmail.com";
+    string password = "LiyemaY@1";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new GqebheraUser();
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = email;
+        user.Email = email;
+        user.EmailConfirmed = true;
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Counsellor");
+    }
+
+}
 app.Run();

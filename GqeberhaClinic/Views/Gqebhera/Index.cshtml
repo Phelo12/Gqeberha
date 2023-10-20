@@ -209,6 +209,103 @@ else if (User.IsInRole("Doctor"))
         </div>
     </div>
 }
+else if (User.IsInRole("Counsellor"))
+{
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <img src="~/images/p-removebg-preview.png" width="90" />
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+
+                                <div class="stat-heading">Walk-in Patient</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <a asp-action="Counsellor" asp-controller="Counselling">
+
+                    <div class="card-body">
+                        <div class="stat-widget-five">
+                            <div class="stat-icon dib flat-color-2">
+                                <img width="90" src="~/images/c-removebg-preview.png" />
+                            </div>
+                            <div class="stat-content">
+                                <div class="text-left dib">
+
+                                    <div class="stat-heading">Counselling</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-3">
+                            <img width="60" src="~/images/istockphoto-1204445468-612x612-removebg-preview.png" />
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+
+                                <div class="stat-heading">Gender-based Violence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <img width="90" src="~/images/istockphoto-1432174656-612x612-removebg-preview.png" />
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+
+                                <div class="stat-heading">Family Planning</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <img width="90" src="~/images/istockphoto-1432174656-612x612-removebg-preview.png" />
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+
+                                <div class="stat-heading">Chronic-Medication</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 else if (User.IsInRole("Nurse"))
 {
     <div class="row">

@@ -46,6 +46,7 @@ namespace GqeberhaClinic.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MyPicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -137,6 +138,28 @@ namespace GqeberhaClinic.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    AppointmentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Date_Time = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.AppointmentID);
+                    table.ForeignKey(
+                        name: "FK_Appointments_AspNetUsers_PatientID",
+                        column: x => x.PatientID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -287,6 +310,72 @@ namespace GqeberhaClinic.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Appointments_Ques",
+                columns: table => new
+                {
+                    QueID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppointmentID = table.Column<int>(type: "int", nullable: false),
+                    dateOFQue = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RoomNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Clinician = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments_Ques", x => x.QueID);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Ques_Appointments_AppointmentID",
+                        column: x => x.AppointmentID,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Records",
+                columns: table => new
+                {
+                    RecordsID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileID = table.Column<int>(type: "int", nullable: false),
+                    BloodPressure = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    HeartRate = table.Column<int>(type: "int", nullable: false),
+                    Temperature = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecordDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NurseID = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Records", x => x.RecordsID);
+                    table.ForeignKey(
+                        name: "FK_Records_AspNetUsers_NurseID",
+                        column: x => x.NurseID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Records_Medical_File_FileID",
+                        column: x => x.FileID,
+                        principalTable: "Medical_File",
+                        principalColumn: "FileID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_PatientID",
+                table: "Appointments",
+                column: "PatientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_Ques_AppointmentID",
+                table: "Appointments_Ques",
+                column: "AppointmentID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -335,12 +424,25 @@ namespace GqeberhaClinic.Migrations
                 name: "IX_Medical_File_PatientID",
                 table: "Medical_File",
                 column: "PatientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Records_FileID",
+                table: "Records",
+                column: "FileID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Records_NurseID",
+                table: "Records",
+                column: "NurseID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Alerts");
+
+            migrationBuilder.DropTable(
+                name: "Appointments_Ques");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -361,7 +463,7 @@ namespace GqeberhaClinic.Migrations
                 name: "FamilyPlanning_Screening");
 
             migrationBuilder.DropTable(
-                name: "Medical_File");
+                name: "Records");
 
             migrationBuilder.DropTable(
                 name: "users");
@@ -373,7 +475,13 @@ namespace GqeberhaClinic.Migrations
                 name: "Vaccine_Education");
 
             migrationBuilder.DropTable(
+                name: "Appointments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Medical_File");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
