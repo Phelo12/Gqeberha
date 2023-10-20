@@ -192,6 +192,30 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("Appointments_Ques");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.appointmentsGBV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointmentsGBVs");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.Property<int>("ScreeningID")

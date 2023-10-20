@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GqeberhaClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231010220009_addprofile")]
-    partial class addprofile
+    [Migration("20231020080010_app")]
+    partial class app
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.21")
+                .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -127,6 +127,95 @@ namespace GqeberhaClinic.Migrations
                     b.HasKey("AlertID");
 
                     b.ToTable("Alerts");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Appointments", b =>
+                {
+                    b.Property<int>("AppointmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentID"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date_Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PatientID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AppointmentID");
+
+                    b.HasIndex("PatientID");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Appointments_Ques", b =>
+                {
+                    b.Property<int>("QueID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QueID"), 1L, 1);
+
+                    b.Property<int>("AppointmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Clinician")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoomNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateOFQue")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("QueID");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.ToTable("Appointments_Ques");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.appointmentsGBV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointmentsGBVs");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
@@ -262,6 +351,56 @@ namespace GqeberhaClinic.Migrations
                     b.HasIndex("PatientID");
 
                     b.ToTable("Medical_File");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Records", b =>
+                {
+                    b.Property<int>("RecordsID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordsID"), 1L, 1);
+
+                    b.Property<decimal?>("BloodPressure")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FileID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HeartRate")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Height")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NurseID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("RecordDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Temperature")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Weight")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("RecordsID");
+
+                    b.HasIndex("FileID");
+
+                    b.HasIndex("NurseID");
+
+                    b.ToTable("Records");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.UserInformation", b =>
@@ -496,6 +635,26 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.Appointments", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Appointments_Ques", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Models.Appointments", "Appointments")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "MainUser")
@@ -512,6 +671,23 @@ namespace GqeberhaClinic.Migrations
                         .HasForeignKey("PatientID");
 
                     b.Navigation("mainUser");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Records", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Models.Medical_File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Nurse")
+                        .WithMany()
+                        .HasForeignKey("NurseID");
+
+                    b.Navigation("File");
+
+                    b.Navigation("Nurse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

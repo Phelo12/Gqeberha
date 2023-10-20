@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GqeberhaClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231013201115_add2")]
-    partial class add2
+    [Migration("20231020071325_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

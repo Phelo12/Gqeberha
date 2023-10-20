@@ -20,5 +20,7 @@ namespace GqeberhaClinic.Data
 		public DbSet<GqeberhaClinic.Models.UserVM>? UserVM { get; set; }
 		public DbSet<GqeberhaClinic.Models.Records>? Records { get; set; }
 		public DbSet<GqeberhaClinic.Models.Appointments_Ques>? Appointments_Ques { get; set; }
-	}
+        public DbSet<GqeberhaClinic.Models.appointmentsGBV>? appointmentsGBVs { get; set; }
+
+    }
 }
