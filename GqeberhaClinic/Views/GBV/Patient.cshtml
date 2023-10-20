@@ -29,7 +29,23 @@
         border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 </style>
+@if (TempData["FileFound"] == null)
+{
+        <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
 
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title"> Please Create a Medical File</h3>
+                        <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <partial name="~/Views/Medical_File/Create_File.cshtml" />
+                    </div>
+                </div>
+            </div>
+        </div>
+}
 
 <bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
 <h2>Gender-Based Violence</h2>
@@ -61,10 +77,13 @@
                 </a>
             </li>
             <li>
-                <a>Report A Case</a>
+                <a class="nav-link" asp-area="" asp-controller="ReportCases" asp-action="Index">Report A Case</a>
             </li>
             <li>
                 <a>Give us Feedback!</a>
+            </li>
+             <li>
+                <a class="nav-link" asp-area="" asp-controller="Medical_File" asp-action="Index">View Medical File</a>
             </li>
         </ul>
     </p>
