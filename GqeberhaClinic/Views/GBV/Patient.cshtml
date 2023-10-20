@@ -29,9 +29,168 @@
         border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 </style>
-<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
-<h3>Patient DashBoard</h3>
+@if (TempData["FileFound"] == null)
+{
+        <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
 
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title"> Please Create a Medical File</h3>
+                        <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <partial name="~/Views/Medical_File/Create_File.cshtml" />
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+
+<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
+<h2>Gender-Based Violence</h2>
+<div class="container-fluid pt-4 px-4" style="background-color: lightblue">
+    <h3>What is Gender Based Violence?</h3>
+
+    <p>
+        Gender Based Violence refers to harmful actions that are directed at an individual based on their
+        gender or sex, often disproportionately affecting women and girls. GBV includes physical, sexual,
+        emotional or financial abuse and it's a widespread global issue that needs attention and needs prevention methods.
+    </p>
+
+    <p>
+        Please note that if you have recently suffered an assault, please go to the nearest Police Station or <a>Book a physical appointment</a>
+        to come to the clinic as soon as possible.
+        
+    </p>
+
+    <p class="text-danger">
+        If you are in immediate danger, please contact the SAPS(South African Police Service) on the number 10111.
+    </p>
+
+    <p>
+        Here at Gqeberha Clinic you can do the following:
+        <ul>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Appointments" asp-action="All_Appointments">book an appointment
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="ReportCases" asp-action="Index">Report A Case</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-area="" asp-controller="Feedbacks" asp-action="Index">Give us Feedback!</a>
+            </li>
+             <li>
+                <a class="nav-link" asp-area="" asp-controller="Medical_File" asp-action="Index">View Medical File</a>
+            </li>
+        </ul>
+    </p>
+
+    <h4>Here are some of the Gender-Based Violence emergency contacts</h4>
+
+    <table class="table table-bordered table-secondary">
+        <thead>
+            <tr>
+                <th colspan="3">Gender Based Violence Emergency Contacts</th>
+            </tr>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type of Service</th>
+                <th scope="col">Contact Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">GBV.org</th>
+                <td>SA Government call centre</td>
+                <td>0800 428 428</td>
+            </tr>
+            <tr>
+                <th scope="row">Law Clinic</th>
+                <td>Free legal services</td>
+                <td>011 717 8562</td>
+            </tr>
+            <tr>
+                <th scope="row">SAPS</th>
+                <td>SA Police Service</td>
+                <td>10111</td>
+            </tr>
+            <tr>
+                <th scope="row">NetCare</th>
+                <td>Emergency Medical Services</td>
+                <td>082 911</td>
+            </tr>
+            <tr>
+                <th scope="row">Emergency Call</th>
+                <td>Police, Fire, Ambulance</td>
+                <td>112</td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <div class="row g-4">
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/app.png" style="width: 100px" />
+                    <h4 class="mb-2">Appointments</h4>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Medical Records</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Report Cases</h4>
+                </div>
+            </div>
+        </div>
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/Feed.png" style="width: 75px" />
+                    <h4 class="mb-2">Give Feedback</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@*
 <div class="container-fluid pt-4 px-4">
 
     <div class="row g-4">
@@ -189,4 +348,4 @@
         </div><!-- /.card -->
     </div>
 </div>
-
+*@

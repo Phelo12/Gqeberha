@@ -6,3 +6,47 @@
 
 <h1>Doctor</h1>
 
+<style>
+    #dash-con {
+        background: rgba( 0, 13, 161, 0.5 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 6px );
+        -webkit-backdrop-filter: blur( 6px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+
+    .container h1 {
+        white-space: nowrap; /* Prevents text from wrapping to the next line */
+        overflow: hidden; /* Hides any overflowing text */
+        text-overflow: ellipsis; /* Truncates text with an ellipsis (...) */
+    }
+
+    #dash-con:hover {
+        background: rgba(224, 255, 255, 0.7 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
+
+
+<div class="container-fluid pt-4 px-4" style="background-color: lightblue">
+    <p>What would you like to do today?</p>
+<ul>
+    <li class="nav-item">
+        <a class="nav-link" asp-area="" asp-controller="Appointments" asp-action="All_Appointments">
+            View appointments
+        </a>
+    </li>
+    <li>
+        <a class="nav-link" asp-area="" asp-controller="ReportCases" asp-action="Index">Report A Case</a>
+    </li>
+      
+    <li>
+        <a class="nav-link" asp-area="" asp-controller="Medical_File" asp-action="Index">View Medical File</a>
+    </li>
+</ul>
+</div>

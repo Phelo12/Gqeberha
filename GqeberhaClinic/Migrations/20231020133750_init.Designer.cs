@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GqeberhaClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231019150851_init")]
+    [Migration("20231020133750_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,6 +194,30 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("Appointments_Ques");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.appointmentsGBV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointmentsGBVs");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.Property<int>("ScreeningID")
@@ -259,6 +283,31 @@ namespace GqeberhaClinic.Migrations
                     b.HasIndex("PatientID");
 
                     b.ToTable("FamilyPlanning_Screening");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.Medical_File", b =>
@@ -377,6 +426,39 @@ namespace GqeberhaClinic.Migrations
                     b.HasIndex("NurseID");
 
                     b.ToTable("Records");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.ReportCase", b =>
+                {
+                    b.Property<int>("caseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("caseID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Communication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("caseDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("caseID");
+
+                    b.ToTable("ReportCases");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.UserInformation", b =>

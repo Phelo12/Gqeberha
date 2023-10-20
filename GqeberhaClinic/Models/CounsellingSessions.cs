@@ -9,8 +9,8 @@ namespace GqeberhaClinic.Models
         [DataType(DataType.Date)]
         [Display(Name = "Session Created Date")]
         public DateTime CreatedDate { get; set;}
-        [Required]
-        [DataType(DataType.Date)]
+        //[Required]
+        //[DataType(DataType.Date)]
 
 
     }
