@@ -231,6 +231,7 @@ else if (User.IsInRole("Doctor"))
 }
 else if (User.IsInRole("Nurse"))
 {
+
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="card">
@@ -253,29 +254,6 @@ else if (User.IsInRole("Nurse"))
 
             </div>
         </div>
-
-        @*<div class="col-lg-3 col-md-6">
-            <div class="card">
-                <a asp-action="" asp-controller="Counselling">
-
-                    <div class="card-body">
-                        <div class="stat-widget-five">
-                            <div class="stat-icon dib flat-color-2">
-                                <img width="90" src="~/images/c-removebg-preview.png" />
-                            </div>
-                            <div class="stat-content">
-                                <div class="text-left dib">
-
-                                    <div class="stat-heading">Counselling</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>*@
-
         <div class="col-lg-3 col-md-6">
             <div class="card">
                 <a asp-action="Nurse" asp-controller="GBV">
@@ -299,7 +277,7 @@ else if (User.IsInRole("Nurse"))
 
         <div class="col-lg-3 col-md-6">
             <div class="card">
-                <a asp-action="Patient" asp-controller="Family_Planning">
+                <a asp-action="Nurse" asp-controller="Family_Planning">
                     <div class="card-body">
                         <div class="stat-widget-five">
                             <div class="stat-icon dib flat-color-4">
@@ -339,8 +317,8 @@ else if (User.IsInRole("Nurse"))
             </div>
         </div>
     </div>
-}
 
+}
 @* else if (User.IsInRole("Administration"))
 {
     <div class="row">
