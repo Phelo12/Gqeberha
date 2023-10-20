@@ -158,7 +158,7 @@ using (var scope = app.Services.CreateScope())
         user.EmailConfirmed = true;
 
         await userManager.CreateAsync(user, password);
-        await userManager.AddToRoleAsync(user, "Administration");
+        await userManager.AddToRoleAsync(user, "Nurse");
     }
 
 }
