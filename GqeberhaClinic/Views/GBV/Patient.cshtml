@@ -29,7 +29,153 @@
         border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 </style>
-<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
+
+
+
+<div class="container" style="background-color: lightblue">
+    <h1>What is Gender Based Violence?</h1>
+    <br />
+    <p>
+        Gender based Violence refers to harmful actions that are directed at an individual based on their gender or sex
+        often disproportionately affecting women and girls. GBV includes physical, sexual, emotional or financial abuse
+        and it is a widespread global issue that needs attention and prevention methods.
+    </p>
+    <p>
+        Please note that if you have recently suffered an assault, please go to your nearest police station or
+        <a class="btn btn-link" asp-area="" asp-controller="Appointments" asp-action="Index">Book a physical Appointment</a> to come to Gqeberha clinic as soon as possible.
+    </p>
+    <p>
+        If you are in immediate danger, please contact the SAPS(South African Police Service) on 10111.
+    </p>
+    <p>
+        Here at Gqeberha Clinic you can do the following:
+    </p>
+
+    <div class="container mt-5">
+        <div class="card-group gap-2">
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Index" asp-controller="Appointments">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <img src="~/images/p-removebg-preview.png" width="90" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Book an Appointment</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Index" asp-controller="ReportCases">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-2">
+                                    
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Report A Case</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Index" asp-controller="Feedbacks">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-3">
+                                    
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Give us Feedback</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="My_File_Report" asp-controller="Medical_Files">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-4">
+                                    
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Create a file</div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        
+
+    <table class="table table-bordered table-secondary">
+        <thead>
+            <tr>
+                <th colspan="3">Gender Based Violence Service providers</th>
+            </tr>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type of Service</th>
+                <th scope="col">Contact Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">GBV.org</th>
+                <td>SA government call centre</td>
+                <td>0800 428 428</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Law Clinic</th>
+                <td>Free Legal services</td>
+                <td>011 717 8562</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Netcare</th>
+                <td>Emergency Medical Services</td>
+                <td>082 911</td>
+            </tr>
+            <tr>
+                <th scope="row">SAPS</th>
+                <td>South African Police Service</td>
+                <td>10111</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+
+
+
+@*<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
 <h3>Patient DashBoard</h3>
 
 <div class="container-fluid pt-4 px-4">
@@ -188,5 +334,5 @@
             </div> <!-- /.card-body -->
         </div><!-- /.card -->
     </div>
-</div>
+</div>*@
 

@@ -62,6 +62,4 @@ function myPrint() {
     document.getElementById('NavbarSide').style.visibility = "visible";
     document.getElementById('sidebar').style.visibility = "visible";
     document.getElementById('Header').style.visibility = "visible";
-
-
 }
