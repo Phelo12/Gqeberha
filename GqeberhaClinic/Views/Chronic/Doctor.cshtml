@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewData["Title"] = "Patient";
-    Layout = "~/Views/Shared/_Family-P.cshtml";
+    ViewData["Title"] = "Doctor";
+    Layout = "~/Views/Shared/_Chronic.cshtml";
 }
-
 
 <style>
     #dash-con {
@@ -31,17 +30,17 @@
     }
 </style>
 <bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
-<h3>Patient DashBoard</h3>
+<h3>Doctors DashBoard</h3>
 
 <div class="container-fluid pt-4 px-4">
 
     <div class="row g-4">
         <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
-            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-center p-2">
-                <div class="ms-3 text-center">
-                    <img src="~/images/F.png" class="text-center" style="width: 100px" />
-                    <h6 class="mb-2 text-center">My Contraceptives History</h6>
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/app.png" style="width: 100px" />
+                    <h4 class="mb-2">Appointments</h4>
                 </div>
             </div>
         </div>
@@ -50,9 +49,9 @@
 
             <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
 
-                <div class="ms-3 text-center">
+                <div class="ms-3">
                     <img src="~/images/MedicalF.png" style="width: 100px" />
-                    <h6 class="mb-2">Referrals</h6>
+                    <h4 class="mb-2">Prescriptions</h4>
                 </div>
             </div>
         </div>
@@ -62,9 +61,9 @@
 
 
             <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
-                <div class="ms-3 text-center">
-                    <img src="~/images/Screen.png" style="width: 100px" />
-                    <h6 class="mb-2">Self Screen</h6>
+                <div class="ms-3">
+                    <img src="~/images/Messages.png" style="width: 100px" />
+                    <h4 class="mb-2">Medical Feedback</h4>
                 </div>
             </div>
         </div>
@@ -73,77 +72,67 @@
 
             <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
                 <div class="ms-3">
-                    <img class="text-center" src="~/images/Feed.png" style="width: 75px" />
-                    <h6 class="mb-2 text-center">feedback</h6>
+                    <img src="~/images/Feed.png" style="width: 75px" />
+                    <h4 class="mb-2">Medical Refills</h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<h5 class="text-center mt-4">My Contraceptive Plan</h5>
-<table id="MyTable1" class="table mt-2">
-    <thead>
-        <tr>
 
+
+<table id="MyTable1" class="table">
+    <thead class="table-dark">
+        <tr>
             <th>
-                Contraceptive Name
+                Patient Information
             </th>
             <th>
-                Prescribed Date
-            </th>
-            <th>
-                Start Date
-            </th>
-            <th>
-                End Date
+                Medication
             </th>
             <th>
                 Dosage
             </th>
             <th>
-                Frequency
+                Duration
             </th>
             <th>
                 Notes
             </th>
             <th>
-                Status
+                prescription Date
             </th>
 
+         
         </tr>
     </thead>
     <tbody>
-        @foreach (ContraceptivePrescription item in ViewBag.His)
+        @foreach (Prescription item in ViewBag.Pre)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ContraceptiveName)
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                    @Html.DisplayFor(modelItem => item.Patient.LastName)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.PrescribedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @Html.DisplayFor(modelItem => item.MedicationName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Dosage)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Frequency)
+                    @Html.DisplayFor(modelItem => item.Duration)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
 
+                <td>
+                    @item.DatePrescribed
+                </td>
+           
             </tr>
         }
     </tbody>
 </table>
-
-

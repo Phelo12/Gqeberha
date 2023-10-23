@@ -15,23 +15,25 @@
     </div>
 }
 
-
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">List of  Medical refill requests</h3>
+</div>
 <table id="MyTable" class="table">
     <thead class="table-dark">
         <tr>
             <th>
-                Patient Full Name
+                Patient's Full Name
             </th>
             <th>
-                Prescriped Medication Name
+                 Medication Name
             </th>
 
 
             <th>
-                Quantity Requested
+                Quantity 
             </th>
             <th>
-                Request Date
+                Request refill Date
             </th>
             <th>
                 Notes
@@ -40,7 +42,7 @@
                 Status
             </th>
             <th>
-                Approval/Decline Date
+                Approval or decline Date
             </th>
 
 
@@ -75,11 +77,11 @@
 
                     @if (item.ApprovalDate == null)
                     {
-                        <p>Not Set</p>
+                        <p>Pending</p>
                     }
                     else
                     {
-                        @Html.DisplayFor(modelItem => item.ApprovalDate)
+                        @item.ApprovalDate
                     }
                 </td>
 
@@ -88,7 +90,7 @@
                     {
 
                         <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#Accept-@item.Id">
-                            Approve 
+                            Approve request
                         </button>
                         <!-- Button trigger modal -->
                         <!-- Modal -->
@@ -99,22 +101,36 @@
                                         <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Accept Request</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                    <div class="modal-body row">
+                                        <div class="col-md-6">
+                                            
+                                                <div class="form-group">
+                                                    <label class="control-label">Medication Name</label>
+                                                    <input disabled value="@item.Prescription.MedicationName" class="form-control" />
 
-                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-                                        <lord-icon src="https://cdn.lordicon.com/cgzlioyf.json"
-                                                   trigger="loop"
-                                                   delay="2000"
-                                                   style="width:200px;height:200px">
-                                        </lord-icon>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Medication Dosage</label>
+                                                    <input disabled value="@item.Prescription.Dosage" class="form-control" />
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Duration</label>
+                                                <input disabled value="@item.Prescription.Duration" class="form-control" />
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                         <img width="200px" src="~/images/istockphoto-1388173119-612x612-removebg-preview.png" />
+                                        </div>
+                                      
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-prumary" asp-action="Accept" asp-route-id="@item.Id">Accept Request</a>
+                                        <a class="btn btn-primary" asp-action="Accept" asp-route-id="@item.Id">Accept Request</a>
                                     </div>
                                 </div>
                             </div>
                         </div> <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#exmpleModal-@item.Id">
-                            Decline 
+                            Decline request
                         </button>
                         <!-- Button trigger modal -->
                         <!-- Modal -->
@@ -125,14 +141,28 @@
                                         <h4 class="modal-title text-center" id="exmpleModalLabel-@item.DoctorsID">Decline Request</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                    <div class="modal-body row">
+                                        <div class="col-md-6">
 
-                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
-                                                   trigger="loop"
-                                                   delay="1000"
-                                                   colors="primary:#121331,secondary:#08a88a"
-                                                   style="width:200px;height:200px">
-                                        </lord-icon>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Name</label>
+                                                <input disabled value="@item.Prescription.MedicationName" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Dosage</label>
+                                                <input disabled value="@item.Prescription.Dosage" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Duration</label>
+                                                <input disabled value="@item.Prescription.Duration" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <img width="200px" src="~/images/rej.png" />
+                                        </div
+
                                     </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-danger" asp-action="Decline" asp-route-id="@item.Id">Decline Request</a>
@@ -153,20 +183,33 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Accept Request</h4>
+                                        <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Medication is Packaging Status</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                    <div class="modal-body row">
+                                        <div class="col-md-6">
 
-                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-                                        <lord-icon src="https://cdn.lordicon.com/ofwxettw.json"
-                                                   trigger="loop"
-                                                   delay="2000"
-                                                   style="width:250px;height:250px">
-                                        </lord-icon>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Name</label>
+                                                <input disabled value="@item.Prescription.MedicationName" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Dosage</label>
+                                                <input disabled value="@item.Prescription.Dosage" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Duration</label>
+                                                <input disabled value="@item.Prescription.Duration" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                       <img  width="200px"src="~/images/istockphoto-1412414020-612x612-removebg-preview.png" />
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-primary" asp-action="Packaging" asp-route-id="@item.Id">In-Packaging Status</a>
+                                        <a class="btn btn-primary" asp-action="Packaging" asp-route-id="@item.Id">Packaging Medication</a>
                                     </div>
                                 </div>
                             </div>
@@ -186,14 +229,27 @@
                                         <h4 class="modal-title text-center" id="Accept-@item.DoctorsID">Ready For Collection</h4>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                   <div class="modal-body row">
+                                        <div class="col-md-6">
 
-                                        <script src="https://cdn.lordicon.com/lordicon-1.1.0.js"></script>
-                                        <lord-icon src="https://cdn.lordicon.com/ofwxettw.json"
-                                                   trigger="loop"
-                                                   delay="2000"
-                                                   style="width:250px;height:250px">
-                                        </lord-icon>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Name</label>
+                                                <input disabled value="@item.Prescription.MedicationName" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Medication Dosage</label>
+                                                <input disabled value="@item.Prescription.Dosage" class="form-control" />
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Duration</label>
+                                                <input disabled value="@item.Prescription.Duration" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                       <img  width="200px" src="~/images/ready.png" />
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-primary" asp-action="Collection" asp-route-id="@item.Id">Ready for collection</a>

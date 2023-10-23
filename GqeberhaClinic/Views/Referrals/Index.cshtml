@@ -69,9 +69,29 @@
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ReferralId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReferralId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReferralId">Delete</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.ReferralId">
+                        Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal-@item.ReferralId" tabindex="-1" aria-labelledby="exampleModalLabel-@item.ReferralId" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.ReferralId">Delete Referal record</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <h5>Are you sure to delete this record?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ReferralId">yes, delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </td>
         </tr>
 }

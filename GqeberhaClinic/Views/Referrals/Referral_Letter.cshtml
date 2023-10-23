@@ -1,0 +1,98 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.Referrals>
+@using GqeberhaClinic.Models
+@using Microsoft.AspNetCore.Identity
+@using GqeberhaClinic.Areas.Identity.Data
+@inject SignInManager<GqebheraUser> SignInManager
+@inject UserManager<GqebheraUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div id="Header" class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">Referred  Contraceptive plans</h3>
+</div>
+
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+<button id="btnPrint" class="btn btn-primary">
+     report
+</button>
+<div id="Information" class="row">
+    <div class="col-8">
+        <img src="~/logos/2.png" style="width:200px" />
+        <p class="mt-3">Date: @ViewBag.Date</p>
+        <p class="mt-3">Time: @ViewBag.Time</p>
+    </div>
+    <div class="col-4 justify-content-md-end">
+        <h4>Nurse Information</h4>
+        <p>First Name: @UserManager.GetUserAsync(User).Result.FirstName</p>
+        <p>Last Name: @UserManager.GetUserAsync(User).Result.LastName</p>
+        <p>Email Address: @UserManager.GetUserAsync(User).Result.Email</p>
+    </div>
+</div>
+<h3 class="text-center">Referred Contraceptive Plan</h3>
+<table id="MyTable1" class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Contraceptive Name
+            </th>
+            <th>
+                start date of plan
+            </th>
+            <th>
+                Date of Referal
+            </th>
+
+            <th>
+                Reason for referal
+            </th>
+            <th>
+                referred to
+            </th>
+            <th>Notes</th>
+            <th>
+                Made by
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContraceptivePlan.ContraceptiveName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContraceptivePlan.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferralDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReasonForReferral)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferredTo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nurse.FirstName)
+                    @Html.DisplayFor(modelItem => item.Nurse.LastName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

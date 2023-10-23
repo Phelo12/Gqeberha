@@ -11,16 +11,16 @@
     Layout = "~/Views/Shared/_Chronic.cshtml";
 }
 <div id="Header" class="bg-primary">
-    <h1 class="m-1 text-center text-white">Report of Medical Prescriptions</h1>
+    <h4 class="m-1 text-center text-white">Report of Medical Prescriptions</h4>
 </div>
 <button id="btnPrint" class="btn btn-primary">
-    Generate report
+    report
 </button>
 <div id="Information" class="row">
     <div class="col-8">
-        <img src="~/images/logos/17.png" style="width:200px" />
-        <p class="mt-3">Date of Report: @ViewBag.Date</p>
-        <p class="mt-3">Time of Report: @ViewBag.Time</p>
+        <img src="~/logos/2.png" style="width:200px" />
+        <p class="mt-3">Date: @ViewBag.Date</p>
+        <p class="mt-3">Time: @ViewBag.Time</p>
     </div>
     <div class="col-4 justify-content-md-end">
         <h4>Patient Information</h4>
@@ -29,9 +29,9 @@
         <p>Email Address: @UserManager.GetUserAsync(User).Result.Email</p>
     </div>
 </div>
-<h3 class="text-center">Medical Prescriptions</h3>
+<h3 class="text-center">My Medical Prescriptions</h3>
 
-<table id="REeport" class="table">
+<table id="MyTable1" class="table">
     <thead class="table-dark">
         <tr>
             <th>

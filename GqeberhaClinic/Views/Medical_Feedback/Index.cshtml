@@ -6,6 +6,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Chronic.cshtml";
 }
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">My Medical precription feedbacks</h3>
+</div>
 
 @if (TempData["Success"] != null)
 {
@@ -14,6 +17,7 @@
         <h5 class="text-dark text-center">@TempData["Success"]</h5>
     </div>
 }
+
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Add New Feed
@@ -32,7 +36,7 @@
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="PrescresptionID" class="control-label"></label>
+                            <label asp-for="PrescresptionID" class="control-label">Prescriped Medicine:</label>
                             <select asp-for="PrescresptionID" class="form-control">
                                 @foreach (Prescription i in ViewBag.Medicine)
                                 {
@@ -42,7 +46,7 @@
                             <span asp-validation-for="PrescresptionID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Feedback" class="control-label">Please Choose Prescripted Medicine:</label>
+                            <label asp-for="Feedback" class="control-label"></label>
                             <input asp-for="Feedback" class="form-control" />
                             <span asp-validation-for="Feedback" class="text-danger"></span>
                         </div>
@@ -60,6 +64,7 @@
         </div>
     </div>
 </div>
+
 <table id="MyTable" class="table">
     <thead class="table-dark">
         <tr>

@@ -15,7 +15,9 @@
     </div>
 }
 
-
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">List of My Medical prescriptions</h3>
+</div>
 <table id="MyTable" class="table">
     <thead class="table-dark">
         <tr>
@@ -69,42 +71,57 @@
                 <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
-                        Request Refill
+                        Medical Refill
                     </button>
-                    <a asp-action="Index" asp-controller="MedicalRefills" class="btn btn-success" asp-rout-itemid="@item.Id">View Requests</a>
+                    <a asp-action="Index" asp-controller="MedicalRefills" asp-route-Id="@item.Id" class="btn btn-warning" asp-rout-itemid="@item.Id">View Requests</a>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Request medication refill</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Request medication refill for this Prescription</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="row modal-body">
-                                    <div class="col-md-6">
+                                    <div  class="col-md-6">
                                         <form asp-controller="MedicalRefills" asp-action="Create">
-                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div hidden asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <div class="form-group">
-                                                <label asp-for="QuantityRequested" class="control-label"></label>
-                                                <input asp-for="QuantityRequested" class="form-control" />
-                                                <span asp-validation-for="QuantityRequested" class="text-danger"></span>
+                                                <label hidden asp-for="QuantityRequested" class="control-label"></label>
+                                                <input hidden value="1" asp-for="QuantityRequested" class="form-control" />
+                                                <span hidden asp-validation-for="QuantityRequested" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group">
-                                                <label asp-for="Notes" class="control-label"></label>
-                                                <input asp-for="Notes" class="form-control" />
+                                            <div hidden class="form-group">
+                                                <label hidden asp-for="Notes" class="control-label"></label>
+                                                <input hidden value="Ccollection" asp-for="Notes" class="form-control" />
                                                 <span asp-validation-for="Notes" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group">
+                                            <div hidden class="form-group">
                                                 <input hidden  value="@item.Id" asp-for="PrescriptionId" class="form-control" />
                                             </div>
+                                            <div  class="form-group">
+                                                <label  class="control-label">Medication Name</label>
+                                                <input disabled value="@item.MedicationName"  class="form-control" />
+                                              
+                                            </div> 
+                                            <div  class="form-group">
+                                                <label  class="control-label">Medication Dosage</label>
+                                                <input disabled value="@item.Dosage"  class="form-control" />
+                                              
+                                            </div> 
+                                            <div  class="form-group">
+                                                <label  class="control-label">Duration</label>
+                                                <input disabled value="@item.Duration"  class="form-control" />
+                                            </div>
                                             <div class="form-group">
-                                                <input type="submit" value="Request" class="btn btn-primary" />
+                                                <input type="submit" value="Request" class="btn btn-primary m-2" />
                                             </div>
                                         </form>
                                     </div>
                                     <div class="col-md-6 text-center">
-                                        <img src="~/images/request.png" style="width: 300px" />
+                                        <img src="~/images/refill.png" width="200px" />
                                     </div>
+                                
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -7,6 +7,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Chronic.cshtml";
 }
+<div class=" text-center bg-primary p-2">
+    <h3 class="text-center text-white">List of all prescription for patients</h3>
+</div>
 @if (TempData["Success"] != null)
 {
 
@@ -17,7 +20,7 @@
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Create Prescription
+    Create New Prescription
 </button>
 
 <!-- Modal -->
@@ -25,7 +28,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Prescription</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Create Prescription for a Patient</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -35,6 +38,7 @@
                         <div class="form-group">
                             <label asp-for="PatientId" class="control-label">Select Patient:</label>
                             <select asp-for="PatientId" class="form-control">
+                                <option disabled>Patients Full Name</option>
                                 @foreach (GqebheraUser item in ViewBag.Patients)
                                 {
                                     <option value="@item.Id">@item.FirstName @item.LastName </option>
@@ -49,23 +53,23 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Dosage" class="control-label"></label>
-                            <input asp-for="Dosage" class="form-control" />
+                            <input placeholder="e.g 2 spoons, 2 pills" asp-for="Dosage" class="form-control" />
                             <span asp-validation-for="Dosage" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Duration" class="control-label"></label>
-                            <input asp-for="Duration" class="form-control" />
+                            <input placeholder="3 times a day" asp-for="Duration" class="form-control" />
                             <span asp-validation-for="Duration" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Notes" class="control-label"></label>
-                            <input asp-for="Notes" class="form-control" />
+                            <input placeholder="right after eating" asp-for="Notes" class="form-control" />
                             <span asp-validation-for="Notes" class="text-danger"></span>
                         </div>
                       
                       
                         <div class="form-group">
-                            <input type="submit" value="Add Prescription" class="btn btn-primary" />
+                            <input type="submit" value="Add New Prescription" class="btn btn-primary m-2" />
                         </div>
                     </form>
                 </div>
@@ -85,7 +89,7 @@
                 Patient Information
             </th>
             <th>
-                MedicationName
+                Medication
             </th>
             <th>
                 Dosage
@@ -97,7 +101,7 @@
                 Notes
             </th>
             <th>
-                Date of prescription
+                prescription Date
             </th>
 
             <th></th>
@@ -131,7 +135,7 @@
                 <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
-                        Edit Prescription
+                        Edit
                     </button>
 
                     <!-- Modal -->
@@ -139,7 +143,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Edit Prescription</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Edit Prescription for a patient</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -150,6 +154,7 @@
                                                 <input value="@item.Id" type="hidden" asp-for="Id" />
                                                 <label asp-for="PatientId" class="control-label">Select Patient:</label>
                                                 <select asp-for="PatientId" class="form-control">
+                                                    <option disabled>Patients Full Name</option>
                                                     @foreach (GqebheraUser item1 in ViewBag.Patients)
                                                     {
                                                         <option value="@item1.Id">@item1.FirstName @item1.LastName </option>
@@ -180,7 +185,7 @@
 
 
                                             <div class="form-group">
-                                                <input type="submit" value="Edit Prescription" class="btn btn-primary" />
+                                                <input type="submit" value="Save Changes" class="btn btn-success" />
                                             </div>
                                         </form>
                                     </div>
@@ -200,11 +205,13 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title text-center" id="DeleteModalLabel-@item.Id">Confirmation for Deleting Prescription</h4>
+                                    <h4 class="modal-title text-center" id="DeleteModalLabel-@item.Id"> Delete Prescription</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <h4>Are you sure you wan to delete this Prescription?</h4>
+                                    <h6>Patient Information: @Html.DisplayFor(modelItem => item.Patient.FirstName)  @Html.DisplayFor(modelItem => item.Patient.LastName)</h6>
+                                    <h6>Medication Name:    @Html.DisplayFor(modelItem => item.MedicationName)</h6>
                                 </div>
                                 <div class="modal-footer">
                                     <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>

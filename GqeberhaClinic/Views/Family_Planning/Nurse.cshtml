@@ -4,11 +4,10 @@
     Layout = "~/Views/Shared/_Family-P.cshtml";
 }
 
+@using GqeberhaClinic.Areas.Identity.Data;
+@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Prescription
 
-@{
-    ViewData["Title"] = "Patient";
-    Layout = "~/Views/Shared/_Family-P.cshtml";
-}
 <style>
     #dash-con {
         background: rgba( 0, 13, 161, 0.5 );
@@ -45,7 +44,7 @@
             <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
                 <div class="ms-3">
                     <img src="~/images/app.png" style="width: 100px" />
-                    <h4 class="mb-2">Appointments</h4>
+                    <h4 class="mb-2">Contraceptive Plans</h4>
                 </div>
             </div>
         </div>
@@ -56,7 +55,7 @@
 
                 <div class="ms-3">
                     <img src="~/images/MedicalF.png" style="width: 100px" />
-                    <h4 class="mb-2">Medical Records</h4>
+                    <h4 class="mb-2">Referalls</h4>
                 </div>
             </div>
         </div>
@@ -84,110 +83,144 @@
         </div>
     </div>
 </div>
-<div class="container-fluid pt-4 px-4 bg-white m-2">
-    <div class="AssessmentTable text-center rounded p-4" id="AssessmentTable">
-        <div class="d-flex align-items-center justify-content-between mb-1">
-            <h4>My Appointments</h4>
-            <a href="#" class="btn btn-primary">Create Appointment</a>
-        </div>
+<h5 class="text-center mt-4">Contraceptive Plans</h5>
+<table id="MyTable1" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Patient Information
+            </th>
+            <th>
+                MedicationName
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Date of prescription
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Prescription item in ViewBag.Pre)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                    @Html.DisplayFor(modelItem => item.Patient.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dosage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+
+                <td>
+                    @item.DatePrescribed
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
+                        Edit Prescription
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.Id">Edit Prescription</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-md-12">
+                                        <form asp-action="Edit">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <input value="@item.Id" type="hidden" asp-for="Id" />
+                                                <label asp-for="PatientId" class="control-label">Select Patient:</label>
+                                                <select asp-for="PatientId" class="form-control">
+                                                    @foreach (GqebheraUser item1 in ViewBag.Patients)
+                                                    {
+                                                        <option value="@item1.Id">@item1.FirstName @item1.LastName </option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label asp-for="MedicationName" class="control-label">Medication Name</label>
+                                                <input value="@item.MedicationName" asp-for="MedicationName" class="form-control" />
+                                                <span asp-validation-for="MedicationName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Dosage" class="control-label"></label>
+                                                <input value="@item.Dosage" asp-for="Dosage" class="form-control" />
+                                                <span asp-validation-for="Dosage" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Duration" class="control-label"></label>
+                                                <input value="@item.Duration" asp-for="Duration" class="form-control" />
+                                                <span asp-validation-for="Duration" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Notes" class="control-label"></label>
+                                                <input value="@item.Notes" asp-for="Notes" class="form-control" />
+                                                <span asp-validation-for="Notes" class="text-danger"></span>
+                                            </div>
 
 
-        <div class="table-responsive ">
-            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
-
-                <thead class="table-primary">
-                    <tr>
-                        <th> Date</th>
-                        <th> Time</th>
-                        <th>Reason of the Appointments</th>
-                        <th>Nurse Information</th>
-                        <th>Status</th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td colspan="5">No Appointments</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title box-title">To Do List</h4>
-                <div class="card-content">
-                    <div class="todo-list">
-                        <div class="tdl-holder">
-                            <div class="tdl-content">
-                                <ul>
-                                    <li>
-                                        <label>
-                                            <input type="checkbox"><i class="check-box"></i><span>defalt task, please create a medical File...</span>
-                                            <a href='#' class="fa fa-times"></a>
-                                            <a href='#' class="fa fa-pencil"></a>
-                                            <a href='#' class="fa fa-check"></a>
-                                        </label>
-                                    </li>
-
-
-
-                                </ul>
+                                            <div class="form-group">
+                                                <input type="submit" value="Edit Prescription" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
                             </div>
                         </div>
-                    </div> <!-- /.todo-list -->
-                </div>
-            </div> <!-- /.card-body -->
-        </div><!-- /.card -->
-    </div>
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title box-title">Live help Chat</h4>
-                <div class="card-content">
-                    <div class="messenger-box">
-                        <ul>
-                            <li>
-                                <div class="msg-received msg-container">
-                                    <div class="avatar">
-                                        <img src="images/avatar/64-1.jpg" alt="">
-                                        <div class="send-time"></div>
-                                    </div>
-                                    <div class="msg-box">
-                                        <div class="inner-box">
-                                            <div class="name">
-                                                Admin
-                                            </div>
-                                            <div class="meg">
-                                                Welcome to Gqeberha Clinic, Dont hesitate having a chat with me
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- /.msg-received -->
-                            </li>
-                            <li>
-
-                            </li>
-                        </ul>
-                        <div class="send-mgs">
-                            <div class="yourmsg">
-                                <input class="form-control" type="text">
+                    </div>
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#Delete-@item.Id">
+                        Delete
+                    </button>
+                    <!-- Button trigger modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="Delete-@item.Id" tabindex="-1" aria-labelledby="DeleteModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-center" id="DeleteModalLabel-@item.Id">Confirmation for Deleting Prescription</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Are you sure you wan to delete this Prescription?</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                                </div>
                             </div>
-                            <button class="btn msg-send-btn">
-                                <i class="pe-7s-paper-plane"></i>
-                            </button>
                         </div>
-                    </div><!-- /.messenger-box -->
-                </div>
-            </div> <!-- /.card-body -->
-        </div><!-- /.card -->
-    </div>
-</div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<GqeberhaClinic.Models.Referrals>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">Referred  Contraceptive plans</h3>
+</div>
+
+@if (TempData["Success"] != null)
+{
+
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
+<table id="MyTable" class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                Contraceptive Name
+            </th>
+            <th>
+                start date of plan
+            </th>
+            <th>
+                Date of Referal
+            </th>
+
+            <th>
+                Reason for referal
+            </th>
+            <th>
+                referred to
+            </th>
+            <th>Notes</th>
+            <th>
+                Made by
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContraceptivePlan.ContraceptiveName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContraceptivePlan.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferralDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReasonForReferral)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferredTo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nurse.FirstName)
+                    @Html.DisplayFor(modelItem => item.Nurse.LastName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
