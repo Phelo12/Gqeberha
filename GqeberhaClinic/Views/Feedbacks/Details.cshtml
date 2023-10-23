@@ -2,7 +2,33 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_GBV.cshtml";
 }
+<style>
+    #dash-con {
+        background: rgba( 0, 13, 161, 0.5 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 6px );
+        -webkit-backdrop-filter: blur( 6px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+
+    .container h1 {
+        white-space: nowrap; /* Prevents text from wrapping to the next line */
+        overflow: hidden; /* Hides any overflowing text */
+        text-overflow: ellipsis; /* Truncates text with an ellipsis (...) */
+    }
+
+    #dash-con:hover {
+        background: rgba( 131, 141, 255, 0.7 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
 
 <h1>Details</h1>
 

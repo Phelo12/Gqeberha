@@ -1,10 +1,12 @@
-﻿
+﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Appointments
 @{
     ViewData["Title"] = "Doctor";
     Layout = "~/Views/Shared/_GBV.cshtml";
 }
 
-<h1>Doctor</h1>
+
+
 
 <style>
     #dash-con {
@@ -34,19 +36,112 @@
 
 
 <div class="container-fluid pt-4 px-4" style="background-color: lightblue">
-    <p>What would you like to do today?</p>
-<ul>
-    <li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="Appointments" asp-action="All_Appointments">
-            View appointments
-        </a>
-    </li>
-    <li>
-        <a class="nav-link" asp-area="" asp-controller="ReportCases" asp-action="Index">Report A Case</a>
-    </li>
-      
-    <li>
-        <a class="nav-link" asp-area="" asp-controller="Medical_File" asp-action="Index">View Medical File</a>
-    </li>
-</ul>
+   
+
+
+    <bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
+    <h3>Doctor's DashBoard</h3>
+    <h4>What would you like to do today?</h4>
+    <div class="container-fluid pt-4 px-4">
+
+        <div class="container mt-5">
+            <div class="card-group gap-2">
+                <div class="card text-center">
+                    <div class="card h-100">
+                        <a style="text-decoration:none" asp-action="Index" asp-controller="Appointments">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-1">
+                                        <img src="~/images/p-removebg-preview.png" width="90" />
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Book an Appointment</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card h-100">
+                        <a style="text-decoration:none" asp-action="Index" asp-controller="ReportCases">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-2">
+                                        <img src="~/images/p-removebg-preview.png" width="90" />
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">Report A Case</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+
+                <div class="card text-center">
+                    <div class="card h-100">
+                        <a style="text-decoration:none" asp-action="Index" asp-controller="Medical_File">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-3">
+                                        <img src="~/images/p-removebg-preview.png" width="90" />
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-heading">View Patient Files</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="MyTable" class="table table-bordered table-secondary">
+        <thead>
+            <tr>
+                <th colspan="3">Gender Based Violence Service providers</th>
+            </tr>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type of Service</th>
+                <th scope="col">Contact Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">GBV.org</th>
+                <td>SA government call centre</td>
+                <td>0800 428 428</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Law Clinic</th>
+                <td>Free Legal services</td>
+                <td>011 717 8562</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Netcare</th>
+                <td>Emergency Medical Services</td>
+                <td>082 911</td>
+            </tr>
+            <tr>
+                <th scope="row">SAPS</th>
+                <td>South African Police Service</td>
+                <td>10111</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
+

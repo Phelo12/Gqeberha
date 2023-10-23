@@ -31,6 +31,7 @@
 </style>
 
 
+<div class="container-fluid pt-4 px-4">
 
 <div class="container" style="background-color: lightblue">
     <h1>What is Gender Based Violence?</h1>
@@ -78,7 +79,7 @@
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-2">
-                                    
+                                    <img src="~/images/p-removebg-preview.png" width="90" />
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
@@ -97,7 +98,7 @@
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-3">
-                                    
+                                <img src="~/images/p-removebg-preview.png" width="90" />    
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
@@ -109,32 +110,12 @@
                     </a>
                 </div>
             </div>
-
-            <div class="card text-center">
-                <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="My_File_Report" asp-controller="Medical_Files">
-                        <div class="card-body">
-                            <div class="stat-widget-five">
-                                <div class="stat-icon dib flat-color-4">
-                                    
-                                <div class="stat-content">
-                                    <div class="text-left dib">
-                                        <div class="stat-heading">Create a file</div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
 
         
 
-    <table class="table table-bordered table-secondary">
+    <table id="MyTable" class="table table-bordered table-secondary">
         <thead>
             <tr>
                 <th colspan="3">Gender Based Violence Service providers</th>
@@ -171,8 +152,8 @@
         </tbody>
     </table>
 
-    
-
+    </div>
+</div>
 
 
 @*<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
