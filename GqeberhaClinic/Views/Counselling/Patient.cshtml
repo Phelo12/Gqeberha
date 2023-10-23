@@ -133,6 +133,9 @@
                 <thead class="table-dark">
                     <tr>
                         <th>
+                            Appointment Created
+                        </th>
+                        <th>
                             Appointment Date_Time
                         </th>
                         <th>
@@ -149,6 +152,9 @@
                     {
                         <tr>
                             <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Date_Time)
                             </td>
 
@@ -164,80 +170,11 @@
                     }
                 </tbody>
             </table>
+            <script>
+                var fromDateInput = document.getElementById('fromDate');
+                fromDateInput.min = new Date().toISOString().split('T')[0];
+            </script>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title box-title">To Do List</h4>
-                <div class="card-content">
-                    <div class="todo-list">
-                        <div class="tdl-holder">
-                            <div class="tdl-content">
-                                <ul>
-                                    <li>
-                                        <label>
-                                            <input type="checkbox"><i class="check-box"></i><span>defalt task, please create a medical File...</span>
-                                            <a href='#' class="fa fa-times"></a>
-                                            <a href='#' class="fa fa-pencil"></a>
-                                            <a href='#' class="fa fa-check"></a>
-                                        </label>
-                                    </li>
-
-
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- /.todo-list -->
-                </div>
-            </div> <!-- /.card-body -->
-        </div><!-- /.card -->
-    </div>
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title box-title">Live help Chat</h4>
-                <div class="card-content">
-                    <div class="messenger-box">
-                        <ul>
-                            <li>
-                                <div class="msg-received msg-container">
-                                    <div class="avatar">
-                                        <img src="images/avatar/64-1.jpg" alt="">
-                                        <div class="send-time"></div>
-                                    </div>
-                                    <div class="msg-box">
-                                        <div class="inner-box">
-                                            <div class="name">
-                                                Admin
-                                            </div>
-                                            <div class="meg">
-                                                Welcome to Gqeberha Clinic, Dont hesitate having a chat with me
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- /.msg-received -->
-                            </li>
-                            <li>
-
-                            </li>
-                        </ul>
-                        <div class="send-mgs">
-                            <div class="yourmsg">
-                                <input class="form-control" type="text">
-                            </div>
-                            <button class="btn msg-send-btn">
-                                <i class="pe-7s-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div><!-- /.messenger-box -->
-                </div>
-            </div> <!-- /.card-body -->
-        </div><!-- /.card -->
-    </div>
-</div>

@@ -83,35 +83,43 @@
     <div class="AssessmentTable text-center rounded p-4" id="AssessmentTable">
         <div class="d-flex align-items-center justify-content-between mb-1">
             <h4>Upcoming Appointments</h4>
-            <a asp-action="All_Appointments" asp-controller="Appointments" class="btn btn-primary" class="nav-item nav-link">View Appointment</a>
+            <a asp-action="All_Appointments" asp-controller="Appointments" class="btn btn-primary" class="nav-item nav-link">View Appointments</a>
         </div>
 
 
-        @* <div class="table-responsive ">
-            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
+        <div class="table-responsive ">
+            <table  class="table table-striped text-start align-middle table-bordered table-hover mb-0">
 
                 <thead class="table-primary">
                     <tr>
-                        <th>Patients Information</th>
-                        <th> Apointment Date</th>
-                        <th> Apointment Time</th>
-                        <th>Reason of the Appointments</th>
+                        <th>
+                            Appointment Created
+                        </th>
+                        <th>
+                            Appointment Date_Time
+                        </th>
+                        <th>
+                            Reason for appointment
+                        </th>
+                        <th>
+                            Status
+                        </th>
 
-                        <th>Apointment Status</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                   
                     <tr>
                         <td colspan="5">No Appointments</td>
                     </tr>
+
 
                 </tbody>
 
 
 
             </table>
-        </div> *@
+        </div>
     </div>
 </div>

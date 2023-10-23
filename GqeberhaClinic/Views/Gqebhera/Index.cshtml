@@ -143,7 +143,7 @@ else if (User.IsInRole("Doctor"))
 
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Consellor" asp-controller="Counselling">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="Counselling">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-2">
@@ -220,13 +220,13 @@ else if (User.IsInRole("Doctor"))
     </div>
 
 }
-else if (User.IsInRole("Counsellor"))
+else if (User.IsInRole("Administration"))
 {
     <div class="container mt-5">
         <div class="card-group gap-2">
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Patient" asp-controller="Walk_In">
+                    <a style="text-decoration:none" asp-action="Admin" asp-controller="Counselling">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-1">
@@ -245,7 +245,7 @@ else if (User.IsInRole("Counsellor"))
 
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Patient" asp-controller="Counselling">
+                    <a style="text-decoration:none" asp-action="Admin" asp-controller="Counselling">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-2">
@@ -264,7 +264,7 @@ else if (User.IsInRole("Counsellor"))
 
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Patient" asp-controller="GBV">
+                    <a style="text-decoration:none" asp-action="Admin" asp-controller="GBV">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-3">
@@ -283,7 +283,7 @@ else if (User.IsInRole("Counsellor"))
 
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Patient" asp-controller="Family_Planning">
+                    <a style="text-decoration:none" asp-action="Admin" asp-controller="Family_Planning">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-4">
@@ -302,7 +302,7 @@ else if (User.IsInRole("Counsellor"))
 
             <div class="card text-center">
                 <div class="card h-100">
-                    <a style="text-decoration:none" asp-action="Patient" asp-controller="Chronic">
+                    <a style="text-decoration:none" asp-action="Admin" asp-controller="Chronic">
                         <div class="card-body">
                             <div class="stat-widget-five">
                                 <div class="stat-icon dib flat-color-4">
@@ -321,6 +321,111 @@ else if (User.IsInRole("Counsellor"))
         </div>
     </div>
      
+}
+else if (User.IsInRole("Counsellor"))
+{
+    <script>
+        window.location.href = '@Url.Action("Counsellor", "Counselling")';
+    </script>
+    @* <div class="container mt-5">
+        <div class="card-group gap-2">
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="Counselling">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-1">
+                                    <img src="~/images/p-removebg-preview.png" width="90" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Walk-in Patient</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="Counselling">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-2">
+                                    <img width="90" src="~/images/c-removebg-preview.png" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Counselling</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="GBV">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-3">
+                                    <img width="60" src="~/images/istockphoto-1204445468-612x612-removebg-preview.png" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Gender-based Violence</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="Family_Planning">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-4">
+                                    <img width="90" src="~/images/istockphoto-1432174656-612x612-removebg-preview.png" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Family Planning</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <div class="card h-100">
+                    <a style="text-decoration:none" asp-action="Counsellor" asp-controller="Chronic">
+                        <div class="card-body">
+                            <div class="stat-widget-five">
+                                <div class="stat-icon dib flat-color-4">
+                                    <img width="90" src="~/images/istockphoto-1432174656-612x612-removebg-preview.png" />
+                                </div>
+                                <div class="stat-content">
+                                    <div class="text-left dib">
+                                        <div class="stat-heading">Chronic-Medication</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> *@
+
 }
 else if (User.IsInRole("Nurse"))
 {
