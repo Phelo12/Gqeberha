@@ -1,4 +1,4 @@
-﻿
+﻿@using GqeberhaClinic.Models
 @{
     ViewData["Title"] = "Patient";
     Layout = "~/Views/Shared/_Counselling.cshtml";
@@ -40,7 +40,16 @@
             <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
                 <div class="ms-3">
                     <img src="~/images/app.png" style="width: 100px" />
-                    <h4 class="mb-2">My Sessions</h4>
+                    <h4 class="mb-2">Counselling Appointments<span class="badge bg-primary rounded-pill text-white">
+                        @if (ViewBag.Appointment != null)
+                            {
+                                <span> @ViewBag.Appointment.Count</span>
+                            }
+                            else
+                            {
+                                <span>0</span>
+                            }
+                        </span></h4>
                 </div>
             </div>
         </div>
@@ -55,7 +64,24 @@
                 </div>
             </div>
         </div>
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/sess.png" style="width: 100px" />
+                    <h4 class="mb-2">Counselling Sessions</h4>
+                </div>
+            </div>
+        </div>
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/hist.png" style="width: 100px" />
+                    <h4 class="mb-2">Sessions History</h4>
+                </div>
+            </div>
+        </div>
 
         <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
@@ -82,35 +108,61 @@
 <div class="container-fluid pt-4 px-4 bg-white m-2">
     <div class="AssessmentTable text-center rounded p-4" id="AssessmentTable">
         <div class="d-flex align-items-center justify-content-between mb-1">
-            <h4>My Session history</h4>
-            <a href="#" class="btn btn-primary">Create Appointment</a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Create Appointment</a>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New Appointment For a Patient</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="/Views/Appointments/Create_Partial.cshtml" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
         <div class="table-responsive ">
-            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
-
-                <thead class="table-primary">
+            <table id="MyTable" class="table">
+                <thead class="table-dark">
                     <tr>
-                        <th> Date</th>
-                        <th> Time</th>
-                        <th>Reason of the Appointments</th>
-                        <th>Cousellor Information</th>
-                        <th>Status</th>
-
+                        <th>
+                            Appointment Date_Time
+                        </th>
+                        <th>
+                            Reason for appointment
+                        </th>
+                        <th>
+                            Status
+                        </th>
 
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (Appointments item in ViewBag.Appointment)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date_Time)
+                            </td>
 
-                    <tr>
-                        <td colspan="5">No Appointments</td>
-                    </tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reason)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
 
+                           
+                        </tr>
+                    }
                 </tbody>
-
-
-
             </table>
         </div>
     </div>

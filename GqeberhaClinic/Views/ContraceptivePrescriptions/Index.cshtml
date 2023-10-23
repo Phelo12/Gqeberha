@@ -1,0 +1,146 @@
+﻿@using GqeberhaClinic.Areas.Identity.Data;
+@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.ContraceptivePrescription
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div class=" text-center bg-primary p-2">
+    <h3 class="text-center text-white">Contraceptive Usage History for patients</h3>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   New Prevention Plan
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Contraceptive Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="PatientId" class="control-label">Choose Patient</label>
+                            <select asp-for="PatientId" class="form-control" >
+
+                                @foreach (GqebheraUser u in ViewBag.Pa)
+                                {
+                                    <option value="@u.Id">@u.FirstName @u.LastName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ContraceptiveName" class="control-label">Contraceptive Name</label>
+                            <input asp-for="ContraceptiveName" class="form-control" />
+                            <span asp-validation-for="ContraceptiveName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="StartDate" class="control-label">Start Date</label>
+                            <input asp-for="StartDate" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EndDate" class="control-label">End Date</label>
+                            <input asp-for="EndDate" class="form-control" />
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Dosage" class="control-label"></label>
+                            <input asp-for="Dosage" class="form-control" />
+                            <span asp-validation-for="Dosage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Frequency" class="control-label"></label>
+                            <input asp-for="Frequency" class="form-control" />
+                            <span asp-validation-for="Frequency" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Notes" class="control-label"></label>
+                            <input asp-for="Notes" class="form-control" />
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Add Plan" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+<table id="MyTable" class="table mt-2">
+    <thead>
+        <tr>
+            <th>
+                Patient Information
+            </th>
+            <th>
+                Contraceptive Name
+            </th>
+            <th>
+               Prescribed Date
+            </th>
+            <th>
+               Start Date
+            </th>
+            <th>
+               End Date
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+              Frequency
+            </th>
+            <th>
+               Notes
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ContraceptivePrescription item in ViewBag.His)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.FirstName)
+                @Html.DisplayFor(modelItem => item.Patient.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContraceptiveName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrescribedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dosage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Frequency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PrescriptionId">Delete</a>
+                <a class="btn btn-primary m-1" asp-controller="Referrals" asp-action="Create" asp-route-id="@item.PrescriptionId">Referee</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

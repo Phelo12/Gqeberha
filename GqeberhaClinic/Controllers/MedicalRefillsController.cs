@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GqeberhaClinic.Areas.Identity.Data;
 using GqeberhaClinic.Models;
-using GqeberhaClinic.Migrations;
+
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Claims;
 using GqeberhaClinic.Data;

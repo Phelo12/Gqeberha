@@ -26,7 +26,8 @@ namespace GqeberhaClinic.Controllers
         // GET: FamilyPlanning_Screening
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.FamilyPlanning_Screening.Include(f => f.MainUser);
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applicationDbContext = _context.FamilyPlanning_Screening.Include(f => f.MainUser).Where(a => a.PatientID == user);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -82,20 +83,23 @@ namespace GqeberhaClinic.Controllers
                 if(total < 30)
                 {
                     
-                    TempData["Result"] = " Pill Prevention can work for you";
+                    TempData["Result"] = " Consider progestin-only pills or other non-estrogen methods.";
+                    familyPlanning_Screening.Message = " Consider progestin-only pills or other non-estrogen methods.";
                 }
                 else if(total > 30 && total < 61)
                 {
-                    TempData["Result"] = "1 Year Injection can work for you";
+                    TempData["Result"] = "Consider non-hormonal methods and barrier methods like condoms.";
+                    familyPlanning_Screening.Message = "Consider non-hormonal methods and barrier methods like condoms.";
                 }
                 else if (total > 61)
                 {
-                    TempData["Result"] = "3 years Injection can work for you";
+                    TempData["Result"] = "Birth control pills might be suitable.";
+                    familyPlanning_Screening.Message = "Birth control pills might be suitable.";
                 }
                 familyPlanning_Screening.Total = total;
                 _context.Add(familyPlanning_Screening);
                 try{
-                    await _emailSender.SendEmailAsync("Mosenakoketso2018@gmail.com", "Screening Results",
+                    await _emailSender.SendEmailAsync(User.FindFirstValue(ClaimTypes.Email), "Screening Results",
                         "Screening has been done");
                     var alert = new Alert()
                     {
@@ -190,8 +194,12 @@ namespace GqeberhaClinic.Controllers
             {
                 return NotFound();
             }
+            _context.FamilyPlanning_Screening.Remove(familyPlanning_Screening);
 
-            return View(familyPlanning_Screening);
+            await _context.SaveChangesAsync();
+            TempData["Success"] = "History has been Deleted";
+            TempData["UpdateType"] = "success";
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: FamilyPlanning_Screening/Delete/5

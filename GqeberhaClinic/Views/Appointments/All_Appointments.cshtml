@@ -182,7 +182,7 @@
                                             <div class="col-md-6">
                                                 <form asp-action="Edit">
                                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                    <input value="@item.AppointmentID" asp-for="AppointmentID" />
+                                                    <input hidden value="@item.AppointmentID" asp-for="AppointmentID" />
                                                     <div class="form-group">
                                                         <label asp-for="Date_Time" class="control-label">New Date and Time</label>
                                                         <input asp-for="Date_Time" class="form-control" />
@@ -210,7 +210,10 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-
+                                      
+                                        <div class="text-center">
+                                            <img width="100px" class="text-center" src="~/images/que.png" />
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <form asp-action="Create1" asp-controller="Appointments_Ques">
@@ -222,7 +225,7 @@
                                                         <span asp-validation-for="Time" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label asp-for="RoomNumber" class="control-label"></label>
+                                                        <label asp-for="RoomNumber" class="control-label">Room number and Block number</label>
                                                         <input asp-for="RoomNumber" class="form-control" />
                                                         <span asp-validation-for="RoomNumber" class="text-danger"></span>
                                                     </div>

@@ -15,60 +15,36 @@
                     <h3 class="modal-title"> Screening Results</h3>
                     <button type="button" id="close" class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                     <img src="~/images/f.png" width="200px" />
                     <h4>@TempData["Result"]</h4>
+                    <h5 class="text-danger">Don't forget to Consult with the Nurse</h5>
                 </div>
             </div>
         </div>
     </div>
 }
+<div class=" text-center bg-primary p-2">
+    <h3 class="text-center text-white">My Self Screen History</h3>
+</div>
+@if (TempData["Success"] != null)
+{
 
-
+    <div class="alert   w-100 @(Convert.ToString(TempData["UpdateType"]) == "success" ? "alert-success" : "alert-danger")" id="tempDataMessage" role="alert">
+        <h5 class="text-dark text-center">@TempData["Success"]</h5>
+    </div>
+}
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary mt-2" asp-action="Create">New Screen</a>
 </p>
-<table class="table">
+<table id="MyTable" class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MainUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question3)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question4)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question5)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question6)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question7)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question8)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question9)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question10)
+           <th>
+               Out-Come
             </th>
             <th></th>
         </tr>
@@ -79,71 +55,35 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.MainUser.FirstName)
+                @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                    @if(item.Question1 == 10)
-                    {
-                        <p>Yes</p>
-                    }
-                    else
-                    {
-                        <p>No</p>
-                    }
-                  
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question4)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question5)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question6)
-            </td>
-            <td>
-                    @if(item.Question7 == 0)
-                    {
-                        <p>This Week</p>
-                    }
-                    else if (item.Question7 == 3)
-                    {
-                        <p>Last Week</p>
-                    }
-                    else if (item.Question7 == 5)
-                    {
-                        <p>Last Month</p>
-                    }
-                    else
-                    {
-                        <p>More that two Months ago</p>
-                    }
+                
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.ScreeningID">
+                        Delete
+                    </button>
 
-                    @Html.DisplayFor(modelItem => item.Question7)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question8)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question9)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question10)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ScreeningID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ScreeningID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ScreeningID">Delete</a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal-@item.ScreeningID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.ScreeningID" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel-@item.ScreeningID">Confirmation of deleting the history</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <h4>Confitm to delete this screen history</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ScreeningID">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </td>
         </tr>
 }

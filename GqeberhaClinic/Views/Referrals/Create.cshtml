@@ -1,0 +1,46 @@
+﻿@model GqeberhaClinic.Models.Referrals
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div class=" text-center bg-primary p-2">
+    <h3 class="text-center text-white">Refere the Contraceptive plan</h3>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ReasonForReferral" class="control-label">Reason For Referral</label>
+                <input asp-for="ReasonForReferral" class="form-control" />
+                <span asp-validation-for="ReasonForReferral" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="ReferredTo" class="control-label">Referring to</label>
+                <input asp-for="ReferredTo" class="form-control" />
+                <span asp-validation-for="ReferredTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label hidden asp-for="PreventionID" class="control-label"></label>
+                <input hidden value="@ViewBag.Id" asp-for="PreventionID" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create Referal" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 text-center">
+        <img class="text-center" src="~/images/refere.png" width="500px" />
+    </div>
+</div>
+
+

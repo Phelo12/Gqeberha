@@ -1,0 +1,86 @@
+﻿@model GqeberhaClinic.Models.Contraceptive
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Contraceptive</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DurationOfEffectiveness" class="control-label"></label>
+                <input asp-for="DurationOfEffectiveness" class="form-control" />
+                <span asp-validation-for="DurationOfEffectiveness" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MethodOfUse" class="control-label"></label>
+                <input asp-for="MethodOfUse" class="form-control" />
+                <span asp-validation-for="MethodOfUse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EfficacyRate" class="control-label"></label>
+                <input asp-for="EfficacyRate" class="form-control" />
+                <span asp-validation-for="EfficacyRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SideEffects" class="control-label"></label>
+                <input asp-for="SideEffects" class="form-control" />
+                <span asp-validation-for="SideEffects" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Benefits" class="control-label"></label>
+                <input asp-for="Benefits" class="form-control" />
+                <span asp-validation-for="Benefits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cost" class="control-label"></label>
+                <input asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contraindications" class="control-label"></label>
+                <input asp-for="Contraindications" class="form-control" />
+                <span asp-validation-for="Contraindications" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reversibility" class="control-label"></label>
+                <input asp-for="Reversibility" class="form-control" />
+                <span asp-validation-for="Reversibility" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StorageInstructions" class="control-label"></label>
+                <input asp-for="StorageInstructions" class="form-control" />
+                <span asp-validation-for="StorageInstructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalNotes" class="control-label"></label>
+                <input asp-for="AdditionalNotes" class="form-control" />
+                <span asp-validation-for="AdditionalNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

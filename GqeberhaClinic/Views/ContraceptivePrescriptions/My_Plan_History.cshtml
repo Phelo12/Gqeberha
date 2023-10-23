@@ -1,0 +1,80 @@
+﻿@using GqeberhaClinic.Areas.Identity.Data;
+@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.ContraceptivePrescription
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Family-P.cshtml";
+}
+
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">My Contraceptive Usage History</h3>
+</div>
+
+<!-- Button trigger modal -->
+
+
+
+<table id="MyTable" class="table mt-2">
+    <thead>
+        <tr>
+            
+            <th>
+                Contraceptive Name
+            </th>
+            <th>
+                Prescribed Date
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Frequency
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Status
+            </th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ContraceptivePrescription item in ViewBag.His)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContraceptiveName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrescribedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dosage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Frequency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

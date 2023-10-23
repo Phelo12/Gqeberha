@@ -28,14 +28,14 @@ namespace GqeberhaClinic.Models
         [Required]
         public int? Question2 { get; set; }
 
-        [Display(Name = "3. Do you have any allergies?")]
+        [Display(Name = "3. Have you ever had blood clots?")]
         [Required]
         public int? Question3 { get; set; }
 
         [Display(Name = "4. Are you sextually active")]
         [Required]
         public int? Question4 { get; set; }
-        [Display(Name = "5. Do you use Condons?")]
+        [Display(Name = "5. Do you want protection against STIs?")]
         [Required]
         public int? Question5 { get; set; }
         [Display(Name = "6. Have you ever Used any Contraceptives")]
@@ -50,10 +50,11 @@ namespace GqeberhaClinic.Models
         [Display(Name = "9. Are you taking any medication?")]
         [Required]
         public int? Question9 { get; set; }
-        [Display(Name = "10. Do you have any Chronic Disease?")]
+        [Display(Name = "10. Are you breast feeding?")]
         [Required]
         public int? Question10 { get; set; }
         public int Total { get; set; }
+        public string? Message { get; set; }
 
 
         public FamilyPlanning_Screening()

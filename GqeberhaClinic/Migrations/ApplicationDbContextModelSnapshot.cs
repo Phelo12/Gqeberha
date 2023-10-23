@@ -192,6 +192,133 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("Appointments_Ques");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.appointmentsGBV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointmentsGBVs");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Contraceptive", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AdditionalNotes")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Benefits")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contraindications")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cost")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DurationOfEffectiveness")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EfficacyRate")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MethodOfUse")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reversibility")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SideEffects")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StorageInstructions")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contraceptive");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.ContraceptivePrescription", b =>
+                {
+                    b.Property<int>("PrescriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrescriptionId"), 1L, 1);
+
+                    b.Property<string>("ContraceptiveName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Dosage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Frequency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("PrescribedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PrescriptionId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("ContraceptivePrescription");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.Property<int>("ScreeningID")
@@ -202,6 +329,9 @@ namespace GqeberhaClinic.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientID")
                         .HasColumnType("nvarchar(450)");
@@ -257,6 +387,73 @@ namespace GqeberhaClinic.Migrations
                     b.HasIndex("PatientID");
 
                     b.ToTable("FamilyPlanning_Screening");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Medical_Feedback", b =>
+                {
+                    b.Property<int>("FeedbackID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackID"), 1L, 1);
+
+                    b.Property<DateTime?>("AnsweredDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorsFeedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DoctorsID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Feedback")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FeedbackDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PatientID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PrescresptionID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("FeedbackID");
+
+                    b.HasIndex("DoctorsID");
+
+                    b.HasIndex("PatientID");
+
+                    b.HasIndex("PrescresptionID");
+
+                    b.ToTable("Medical_Feedback");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.Medical_File", b =>
@@ -327,6 +524,90 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("Medical_File");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.MedicalRefill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("ApprovalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorsID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PrescriptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityRequested")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorsID");
+
+                    b.HasIndex("PatientID");
+
+                    b.HasIndex("PrescriptionId");
+
+                    b.ToTable("MedicalRefill");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Prescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("DatePrescribed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorsID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Dosage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MedicationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorsID");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Prescription");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.Records", b =>
                 {
                     b.Property<int>("RecordsID")
@@ -375,6 +656,77 @@ namespace GqeberhaClinic.Migrations
                     b.HasIndex("NurseID");
 
                     b.ToTable("Records");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Referrals", b =>
+                {
+                    b.Property<int>("ReferralId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReferralId"), 1L, 1);
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NurseID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PreventionID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReasonForReferral")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReferralDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReferredTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReferringDoctor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ReferralId");
+
+                    b.HasIndex("NurseID");
+
+                    b.HasIndex("PreventionID");
+
+                    b.ToTable("Referrals");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.ReportCase", b =>
+                {
+                    b.Property<int>("caseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("caseID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Communication")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("caseDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("caseID");
+
+                    b.ToTable("ReportCases");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.UserInformation", b =>
@@ -629,6 +981,15 @@ namespace GqeberhaClinic.Migrations
                     b.Navigation("Appointments");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.ContraceptivePrescription", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "MainUser")
@@ -638,6 +999,29 @@ namespace GqeberhaClinic.Migrations
                     b.Navigation("MainUser");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.Medical_Feedback", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorsID");
+
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID");
+
+                    b.HasOne("GqeberhaClinic.Models.Prescription", "Prescription")
+                        .WithMany()
+                        .HasForeignKey("PrescresptionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Prescription");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.Medical_File", b =>
                 {
                     b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "mainUser")
@@ -645,6 +1029,44 @@ namespace GqeberhaClinic.Migrations
                         .HasForeignKey("PatientID");
 
                     b.Navigation("mainUser");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.MedicalRefill", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorsID");
+
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID");
+
+                    b.HasOne("GqeberhaClinic.Models.Prescription", "Prescription")
+                        .WithMany()
+                        .HasForeignKey("PrescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Prescription");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Prescription", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorsID");
+
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.Records", b =>
@@ -660,6 +1082,21 @@ namespace GqeberhaClinic.Migrations
                         .HasForeignKey("NurseID");
 
                     b.Navigation("File");
+
+                    b.Navigation("Nurse");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Referrals", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Nurse")
+                        .WithMany()
+                        .HasForeignKey("NurseID");
+
+                    b.HasOne("GqeberhaClinic.Models.ContraceptivePrescription", "ContraceptivePlan")
+                        .WithMany()
+                        .HasForeignKey("PreventionID");
+
+                    b.Navigation("ContraceptivePlan");
 
                     b.Navigation("Nurse");
                 });

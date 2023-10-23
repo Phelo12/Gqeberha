@@ -1,6 +1,7 @@
 ﻿using GqeberhaClinic.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace GqeberhaClinic.Controllers
@@ -20,6 +21,7 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
             ViewBag.Alert = alert;
+            ViewBag.Appointmnet =  _context.Appointments.Include(a => a.Patient).Where(e => e.PatientID == user).OrderByDescending(a => a.CreatedDate).ToList();
             try
             {
                 var File = _context.Medical_File.Where(a => a.PatientID == user).FirstOrDefault();

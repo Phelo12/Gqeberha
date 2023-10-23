@@ -684,7 +684,7 @@ namespace GqeberhaClinic.Controllers
                 //Create alert
                 var alert = new Alert()
                 {
-                    Message = "Please note that appointment, dated on " + appointments.CreatedDate + " has been accepted by one of our Consellor",
+                    Message = "Please note that appointment, dated on " + appointments.CreatedDate + " has been accepted by one of our Counsellor",
                     IntendedUser = appointments.PatientID,
                     Role = "Notification",
 

@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-md-6 col-xl-6 col-sm-12 ">
                 <span class="border-1 rounded bg-primary">
-                    <h4>Personal Information</h4>
-                    <hr />
+                    <h4 class="text-primary">Personal Information</h4>
+                    <hr class="text-primary" />
                     <div class="row">
                         <div class="form-group col-6">
                             <label asp-for="Gender" class="control-label"></label>
@@ -64,14 +64,14 @@
                 <h4>Emergency Person</h4>
                 <hr />
                 <div class="form-group">
-                    <label asp-for="EmergencyPerson" class="control-label"></label>
+                    <label asp-for="EmergencyPerson" class="control-label">Emergency person Full Names</label>
                     <input asp-for="EmergencyPerson" class="form-control" />
                     <span asp-validation-for="EmergencyPerson" class="text-danger"></span>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label asp-for="EmergencyContactNo" class="control-label"></label>
-                        <input asp-for="EmergencyContactNo" class="form-control" placeholder="+27786459388" />
+                        <input asp-for="EmergencyContactNo" class="form-control" placeholder="+27781259388" />
                         <span asp-validation-for="EmergencyContactNo" class="text-danger"></span>
                     </div>
                     <div class="form-group col-6">
@@ -97,24 +97,18 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
-                        <label asp-for="Allergies" class="control-label"></label>
-                        <input asp-for="Allergies" class="form-control" />
+                        <label asp-for="Allergies" class="control-label">Do you have any allergies</label>
+                        <input asp-for="Allergies" class="form-control"/>
                         <span asp-validation-for="Allergies" class="text-danger"></span>
                     </div>
                     <div class="form-group col-6">
-                        <label asp-for="AnySurgeries" class="control-label"></label>
+                        <label asp-for="AnySurgeries" class="control-label">Ever had any Surgery in the past?</label>
                         <input asp-for="AnySurgeries" class="form-control" />
                         <span asp-validation-for="AnySurgeries" class="text-danger"></span>
                     </div>
                 </div>
-              
                 <div class="form-group">
-                    <label asp-for="ExtraNotes" class="control-label"></label>
-                    <input asp-for="ExtraNotes" class="form-control" />
-                    <span asp-validation-for="ExtraNotes" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create File" class="btn btn-primary" />
+                    <input type="submit" value="Create Medical File" class="btn btn-primary" />
                 </div>
            </div>
 

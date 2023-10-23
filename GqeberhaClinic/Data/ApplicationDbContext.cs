@@ -23,5 +23,11 @@ namespace GqeberhaClinic.Data
 		public DbSet<GqeberhaClinic.Models.UserVM>? UserVM { get; set; }
 		public DbSet<GqeberhaClinic.Models.Records>? Records { get; set; }
 		public DbSet<GqeberhaClinic.Models.Appointments_Ques>? Appointments_Ques { get; set; }
-	}
+        public DbSet<GqeberhaClinic.Models.appointmentsGBV>? appointmentsGBVs { get; set; }
+        public DbSet<ReportCase>? ReportCases { get; set; }
+        public DbSet<Feedback>? Feedbacks { get; set; }
+        public DbSet<GqeberhaClinic.Models.Contraceptive>? Contraceptive { get; set; }
+        public DbSet<GqeberhaClinic.Models.ContraceptivePrescription>? ContraceptivePrescription { get; set; }
+        public DbSet<GqeberhaClinic.Models.Referrals>? Referrals { get; set; }
+    }   
 }

@@ -74,6 +74,7 @@ app.UseEndpoints(end =>
         defaults: new { Controller = "Medical_File", action = "Patient_File" }
         );
 });
+
 //assigning admin role to one user only
 using (var scope = app.Services.CreateScope())
 {
@@ -138,6 +139,99 @@ using (var scope = app.Services.CreateScope())
         user.UserName = email;
         user.Email = email;
         user.EmailConfirmed = true;
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Patient");
+    }
+
+}
+using (var scope = app.Services.CreateScope())
+{
+    var userManager =
+
+    scope.ServiceProvider.GetRequiredService<UserManager<GqebheraUser>>();
+    string firstName = "Liyema";
+    string lastName = "Yake";
+    string email = "LiyemaY@gmail.com";
+    string password = "LiyemaY@1";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new GqebheraUser();
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = email;
+        user.Email = email;
+        user.EmailConfirmed = true;
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Counsellor");
+    }
+
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager =
+
+    scope.ServiceProvider.GetRequiredService<UserManager<GqebheraUser>>();
+    string firstName = "Thimna";
+    string lastName = "Magingxa";
+    string email = "thimnamagingxa@gmail.com";
+    string password = "Magingxa@17";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new GqebheraUser();
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = email;
+        user.Email = email;
+        user.EmailConfirmed = true;
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Nurse");
+    }
+
+}
+using (var scope = app.Services.CreateScope())
+{
+    var userManager =
+
+    scope.ServiceProvider.GetRequiredService<UserManager<GqebheraUser>>();
+    string firstName = "John";
+    string lastName = "Doe";
+    string email = "johndoe@gmail.com";
+    string password = "Magingxa@17";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new GqebheraUser();
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = email;
+        user.Email = email;
+        user.EmailConfirmed = true;
+
+        await userManager.CreateAsync(user, password);
+        await userManager.AddToRoleAsync(user, "Doctor");
+    }
+
+}
+using (var scope = app.Services.CreateScope())
+{
+    var userManager =
+
+    scope.ServiceProvider.GetRequiredService<UserManager<GqebheraUser>>();
+    string firstName = "James";
+    string lastName = "Harden";
+    string email = "jamesharden@gmail.com";
+    string password = "Magingxa@17";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new GqebheraUser();
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.UserName = email;
+        user.Email = email;
+        user.EmailConfirmed = true;
+
         await userManager.CreateAsync(user, password);
         await userManager.AddToRoleAsync(user, "Patient");
     }

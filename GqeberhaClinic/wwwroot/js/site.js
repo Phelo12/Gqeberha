@@ -36,14 +36,14 @@ $(document).ready(function () {
             'copy', 'pdf', 'print'
         ]
     });
-    $('#REeport').DataTable({
-
+    $('#MyTable1').DataTable({
+      
     });
 });
 $(document).ready(function () {
     console.log("Its working");
     document.getElementById('Information').style.visibility = "hidden";
-   
+  
 
 });
 const Prntbtn = document.getElementById('btnPrint');

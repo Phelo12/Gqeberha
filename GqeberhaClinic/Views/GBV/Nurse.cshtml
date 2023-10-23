@@ -6,3 +6,79 @@
 
 <h1>Nurse</h1>
 
+<style>
+    #dash-con {
+        background: rgba( 0, 13, 161, 0.5 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 6px );
+        -webkit-backdrop-filter: blur( 6px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+
+    .container h1 {
+        white-space: nowrap; /* Prevents text from wrapping to the next line */
+        overflow: hidden; /* Hides any overflowing text */
+        text-overflow: ellipsis; /* Truncates text with an ellipsis (...) */
+    }
+
+    #dash-con:hover {
+        background: rgba(224, 255, 255, 0.7 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
+
+
+<div class="container-fluid pt-4 px-4" style="background-color: lightblue">
+    <p>What would you like to do today?</p>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">
+                Add New User
+            </a>
+        </li>
+        
+    </ul>
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">
+                View appointments
+            </a>
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/app.png" style="width: 100px" />
+                    <h4 class="mb-2">Appointments</h4>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <a class="nav-link" asp-area="" asp-controller="Medical_File" asp-action="Index">Medical Files</a>
+
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Medical Records</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Report Cases</h4>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
