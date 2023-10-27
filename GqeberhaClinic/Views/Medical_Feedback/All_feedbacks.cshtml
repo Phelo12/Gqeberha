@@ -14,7 +14,9 @@
         <h5 class="text-dark text-center">@TempData["Success"]</h5>
     </div>
 }
-
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">Medical Prescription Feedbacks</h3>
+</div>
 <table id="MyTable" class="table">
     <thead class="table-dark">
         <tr>
@@ -22,24 +24,24 @@
                 Patient Full Names
             </th>
             <th>
-                Medicine Name
+                Medication Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Feedback)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.FeedbackDate)
+               date of Feedback
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.DoctorsFeedback)
+               Doctors reply
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Doctor)
+                Doctor full names
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnsweredDate)
+               Date
             </th>
             <th></th>
         </tr>
@@ -64,7 +66,7 @@
                 <td>
                     @if (item.DoctorsFeedback == null)
                     {
-                        <p>Not Provided</p>
+                        <p>Pending</p>
                     }
                     else
                     {
@@ -74,7 +76,7 @@
                 <td>
                     @if (item.DoctorsFeedback == null)
                     {
-                        <p>Not set</p>
+                        <p>pending</p>
                     }
                     else
                     {
@@ -85,7 +87,7 @@
                 <td>
                     @if (item.DoctorsFeedback == null)
                     {
-                        <p>Not set</p>
+                        <p>pending</p>
                     }
                     else
                     {
@@ -99,7 +101,7 @@
                     {
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.FeedbackID">
-                            Answer
+                            Provide feedback
                         </button>
 
                         <!-- Modal -->
@@ -107,7 +109,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel-@item.FeedbackID">Provide Feedback</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel-@item.FeedbackID">Provide Medical Prescription Feedback</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -116,13 +118,13 @@
                                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                                 <input value="@item.FeedbackID" type="hidden" asp-for="FeedbackID" />
                                                 <div class="form-group">
-                                                    <label asp-for="DoctorsFeedback" class="control-label">Please Choose Prescripted Medicine:</label>
+                                                    <label asp-for="DoctorsFeedback" class="control-label">Please Provide Feedback</label>
                                                     <input asp-for="DoctorsFeedback" class="form-control" />
                                                     <span asp-validation-for="DoctorsFeedback" class="text-danger"></span>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <input type="submit" value="Provide Feedback" class="btn btn-primary" />
+                                                    <input type="submit" value="Add Feedback" class="btn btn-primary m-2" />
                                                 </div>
                                             </form>
                                         </div>

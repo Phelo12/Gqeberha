@@ -15,7 +15,9 @@
     </div>
 }
 
-
+<div class=" text-center bg-primary p-2 mb-2">
+    <h3 class="text-center text-white">List of My Medical refill requests</h3>
+</div>
 <table id="MyTable" class="table">
     <thead class="table-dark">
         <tr>
@@ -86,49 +88,6 @@
                 <td>
                     @if (item.Status == RefillStatus.Pending)
                     {
-                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.Id">
-                           Edit Request
-                        </button>
-                       
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel-@item.Id" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel-@item.Id">Update medication refill</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="row modal-body">
-                                        <div class="col-md-6">
-                                            <form asp-action="Edit">
-                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                <input value="@item.Id" type="hidden" asp-for="Id" />
-                                                <div class="form-group">
-                                                    <label asp-for="QuantityRequested" class="control-label"></label>
-                                                    <input asp-for="QuantityRequested" class="form-control" />
-                                                    <span asp-validation-for="QuantityRequested" class="text-danger"></span>
-                                                </div>
-                                          
-                                                <div class="form-group">
-                                                    <label asp-for="Notes" class="control-label"></label>
-                                                    <input asp-for="Notes" class="form-control" />
-                                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" value="Update" class="btn btn-primary" />
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6 text-center">
-                                            <img src="~/images/request.png" style="width: 300px" />
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#exmpleModal-@item.Id">
                             Delete Request
                         </button>
@@ -143,12 +102,7 @@
                                     </div>
                                     <div class="modal-body text-center">
 
-                                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json"
-                                                   trigger="loop"
-                                                   delay="1000"
-                                                   colors="primary:#121331,secondary:#08a88a"
-                                                   style="width:200px;height:200px">
-                                        </lord-icon>
+                                        <img src="~/images/delete.png" width="200px" />
                                     </div>
                                     <div class="modal-footer">
                                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete Request</a>

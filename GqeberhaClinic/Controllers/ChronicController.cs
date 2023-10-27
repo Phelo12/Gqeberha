@@ -30,6 +30,7 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderBy(a => a.Date).ToList();
             ViewBag.Alert = alert;
+            ViewBag.Pre = _context.Prescription.Include(p => p.Doctor).Include(p => p.Patient).Where(a => a.PatientId == user).ToList();
             return View();
         }
         public IActionResult Nurse()
@@ -37,6 +38,14 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderBy(a => a.Date).ToList();
             ViewBag.Alert = alert;
+            return View();
+        }
+        public IActionResult Doctor()
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderBy(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            ViewBag.Pre = _context.Prescription.Include(p => p.Doctor).Include(p => p.Patient).ToList();
             return View();
         }
     }

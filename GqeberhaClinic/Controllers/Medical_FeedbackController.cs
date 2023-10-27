@@ -34,11 +34,16 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewBag.Medicine = _context.Prescription.Where(a => a.PatientId == user).ToList();
             ViewBag.Feed = _context.Medical_Feedback.Include(m => m.Doctor).Include(m => m.Patient).Include(m => m.Prescription).Where(a => a.PatientID == user).ToList();
+       
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
             return View();
         }
           public async Task<IActionResult> All_feedbacks()
         {
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert; ;
             ViewBag.Medicine = _context.Prescription.Where(a => a.PatientId == user).ToList();
             ViewBag.Feed = _context.Medical_Feedback.Include(m => m.Doctor).Include(m => m.Patient).Include(m => m.Prescription).ToList();
             return View();
@@ -68,6 +73,9 @@ namespace GqeberhaClinic.Controllers
         // GET: Medical_Feedback/Create
         public IActionResult Create()
         {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
             ViewData["DoctorsID"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["PatientID"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["PrescresptionID"] = new SelectList(_context.Prescription, "Id", "Dosage");

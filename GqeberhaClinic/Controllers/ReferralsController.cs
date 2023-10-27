@@ -23,7 +23,28 @@ namespace GqeberhaClinic.Controllers
         // GET: Referrals
         public async Task<IActionResult> Index()
         {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
             var applicationDbContext = _context.Referrals.Include(r => r.ContraceptivePlan).Include(r => r.ContraceptivePlan.Patient);
+            return View(await applicationDbContext.ToListAsync());
+        } 
+        public async Task<IActionResult> My_Referrals()
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            var applicationDbContext = _context.Referrals.Include(r => r.ContraceptivePlan).Include(r => r.Nurse).Include(r => r.ContraceptivePlan.Patient).Where(a => a.ContraceptivePlan.PatientId == user);
+            return View(await applicationDbContext.ToListAsync());
+        }
+          public async Task<IActionResult> Referral_Letter()
+        {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            ViewBag.Date = DateTime.Now.ToString("dd/MMMM/yyyy");
+            ViewBag.Time = DateTime.Now.ToString("HH:MM");
+            var applicationDbContext = _context.Referrals.Include(r => r.ContraceptivePlan).Include(r => r.Nurse).Include(r => r.ContraceptivePlan.Patient).Where(a => a.ContraceptivePlan.PatientId == user);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -70,10 +91,11 @@ namespace GqeberhaClinic.Controllers
                 referrals.NurseID = user;
                 _context.Add(referrals);
                 await _context.SaveChangesAsync();
+                var contraceptive = _context.ContraceptivePrescription.Where(a => a.PrescriptionId == referrals.PreventionID).FirstOrDefault();
                 var alert = new Alert()
                 {
-                    Message = "Screening has been done sucessfully",
-                    IntendedUser = user,
+                    Message = "Referal letter has been made for  family Planning",
+                    IntendedUser = contraceptive.PatientId,
                     Role = "notification",
 
                 };
@@ -153,8 +175,14 @@ namespace GqeberhaClinic.Controllers
             {
                 return NotFound();
             }
+            if (referrals != null)
+            {
+                _context.Referrals.Remove(referrals);
+            }
 
-            return View(referrals);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Referrals/Delete/5

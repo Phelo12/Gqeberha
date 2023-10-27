@@ -27,7 +27,10 @@ namespace GqeberhaClinic.Controllers
         // GET: MedicalRefills
         public async Task<IActionResult> All_Requests(int ID)
         {
-            if(ID == null || ID == 0)
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            if (ID == null || ID == 0)
             {
                 ViewBag.List = _context.MedicalRefill.Include(m => m.Doctor).Include(m => m.Patient).Include(m => m.Prescription).Include(a => a.Prescription.Doctor).OrderByDescending(a => a.RequestDate).ToList();
                 return View();
@@ -38,9 +41,12 @@ namespace GqeberhaClinic.Controllers
                 return View();
             }
          
-        } public async Task<IActionResult> Index(int ID)
+        } public async Task<IActionResult> Index(int? ID)
         {
-            if(ID == null || ID == 0)
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
+            if (ID == null || ID == 0)
             {
                 ViewBag.List = _context.MedicalRefill.Include(m => m.Doctor).Include(m => m.Patient).Include(m => m.Prescription).Include(a => a.Prescription.Doctor).ToList();
                 return View();
@@ -77,6 +83,9 @@ namespace GqeberhaClinic.Controllers
         // GET: MedicalRefills/Create
         public IActionResult Create()
         {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
             ViewData["DoctorsID"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["PatientID"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["PrescriptionId"] = new SelectList(_context.Prescription, "Id", "Dosage");
@@ -132,6 +141,9 @@ namespace GqeberhaClinic.Controllers
         // GET: MedicalRefills/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
+            ViewBag.Alert = alert;
             if (id == null || _context.MedicalRefill == null)
             {
                 return NotFound();
@@ -240,7 +252,7 @@ namespace GqeberhaClinic.Controllers
             medicalRefill.DoctorsID = user;
             _context.MedicalRefill.Update(medicalRefill);
             await _context.SaveChangesAsync();
-            TempData["Success"] = "Request  is in Packaging Mode";
+            TempData["Success"] = "Medication Request has been packaged";
             TempData["UpdateType"] = "success";
             return RedirectToAction(nameof(All_Requests));
         }     
@@ -266,7 +278,7 @@ namespace GqeberhaClinic.Controllers
             medicalRefill.DoctorsID = user;
             _context.MedicalRefill.Update(medicalRefill);
             await _context.SaveChangesAsync();
-            TempData["Success"] = "Request  is ready for Collection";
+            TempData["Success"] = "Medication   is ready for Collection";
             TempData["UpdateType"] = "success";
             return RedirectToAction(nameof(All_Requests));
         }      public async Task<IActionResult> Accept(int? id)

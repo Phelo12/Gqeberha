@@ -41,6 +41,8 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
             ViewBag.Alert = alert;
+
+            ViewBag.appoint = _context.Appointments.Include(a => a.Patient).OrderByDescending(a => a.CreatedDate).ToList();
             return View();
         }  public IActionResult Admin()
         {

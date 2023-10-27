@@ -1,8 +1,136 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Patient";
     Layout = "~/Views/Shared/_Chronic.cshtml";
 }
 
-<h1>Patient</h1>
+<style>
+    #dash-con {
+        background: rgba( 0, 13, 161, 0.5 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 6px );
+        -webkit-backdrop-filter: blur( 6px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 
+    .container h1 {
+        white-space: nowrap; /* Prevents text from wrapping to the next line */
+        overflow: hidden; /* Hides any overflowing text */
+        text-overflow: ellipsis; /* Truncates text with an ellipsis (...) */
+    }
+
+    #dash-con:hover {
+        background: rgba( 131, 141, 255, 0.7 );
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
+</style>
+<bold><h1>Welcome to <sapn class="text-primary">Gqeberha</sapn> <span class="text-warning">Clinic</span></h1></bold>
+<h3>Patient's DashBoard</h3>
+
+<div class="container-fluid pt-4 px-4">
+
+    <div class="row g-4">
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/app.png" style="width: 100px" />
+                    <h4 class="mb-2">Appointments</h4>
+                </div>
+            </div>
+        </div>
+        <div class=" col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+
+                <div class="ms-3">
+                    <img src="~/images/MedicalF.png" style="width: 100px" />
+                    <h4 class="mb-2">Prescriptions</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/Messages.png" style="width: 100px" />
+                    <h4 class="mb-2">Medical Feedback</h4>
+                </div>
+            </div>
+        </div>
+        <div class="  col-sm-6 col-xl-3 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+            <div id="dash-con" class="dash-con rounded d-flex align-items-center justify-content-between p-2">
+                <div class="ms-3">
+                    <img src="~/images/Feed.png" style="width: 75px" />
+                    <h4 class="mb-2">Medical Refills</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h5 class="tetx-center mt-2">My Medical Prescriptions</h5>
+<table id="MyTable1" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Doctor Information
+            </th>
+            <th>
+                Medication Name
+            </th>
+            <th>
+                Dosage
+            </th>
+            <th>
+                Duration
+            </th>
+            <th>
+                Notes
+            </th>
+            <th>
+                Date of prescription
+            </th>
+
+       
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Prescription item in ViewBag.Pre)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Doctor.FirstName)
+                    @Html.DisplayFor(modelItem => item.Doctor.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dosage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatePrescribed)
+                </td>
+          
+            </tr>
+        }
+    </tbody>
+</table>

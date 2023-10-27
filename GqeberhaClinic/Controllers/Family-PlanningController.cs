@@ -21,11 +21,13 @@ namespace GqeberhaClinic.Controllers
             var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var alert = _context.Alerts.Where(a => a.IntendedUser == user).OrderByDescending(a => a.Date).ToList();
             ViewBag.Alert = alert;
+            ViewBag.His = _context.ContraceptivePrescription.Include(c => c.Patient).Where(a => a.PatientId == user).ToList();
             return View();
         }
             public IActionResult Nurse()
             {
-                return View();
+            ViewBag.Pre = _context.Prescription.Include(p => p.Doctor).Include(p => p.Patient).ToList();
+            return View();
             }
         }
 }
