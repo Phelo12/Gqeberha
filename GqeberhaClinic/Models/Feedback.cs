@@ -12,5 +12,7 @@ namespace GqeberhaClinic.Models
         public string Email { get; set; }
         [Required]
         public string Description { get; set; }
+        public int SessionID { get; set; }
+        public string? Reason { get; set; }
     }
 }

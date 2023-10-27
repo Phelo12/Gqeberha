@@ -75,8 +75,9 @@
                         <a asp-action="Index" asp-controller="Gqebhera" class="nav-item nav-link"><i class="fa fa-home me-2"></i>Home</a>
                         <a asp-action="Patient" asp-controller="Counselling" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a asp-action="Index" asp-controller="Appointments" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Counselling Appointments</a>
-                        <a asp-action="My_File" asp-controller="Medical_File" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Counselling Sessions</a>
+                        <a asp-action="My_Sessions" asp-controller="CounsellingSessions" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Counselling Sessions</a>
                         <a asp-action="My_Records" asp-controller="Medical_File" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Medical Records</a>
+                        
                         <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                         <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                         <div class="nav-item dropdown">
@@ -123,6 +124,7 @@
                         <a asp-action="Patient" asp-controller="Counselling" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a asp-action="All_Appointments" asp-controller="Appointments" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Appointments</a>
                         <a asp-action="Index" asp-controller="Appointments_Ques" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Queued Appointments</a>
+                        <a asp-action="My_Sessions" asp-controller="CounsellingSessions" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Counselling Sessions</a>
                         <a asp-action="Index" asp-controller="Medical_File" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Medical Files</a>
                         <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                         <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
@@ -172,6 +174,7 @@
                         <a asp-action="Counsellor" asp-controller="Counselling" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <a asp-action="All_Appointments" asp-controller="Appointments" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Appointments</a>
                         <a asp-action="Index" asp-controller="Appointments_Ques" class="nav-item nav-link"><i class="fa fa-calendar me-2"></i>Queued Appointments</a>
+                        <a asp-action="My_Sessions" asp-controller="CounsellingSessions" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Counselling Sessions</a>
                         <a asp-action="Index" asp-controller="Medical_File" class="nav-item nav-link"><i class="fa fa-file me-2"></i>Medical Files</a>
                         <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
                         <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
@@ -249,7 +252,7 @@
                             <span class="d-none d-lg-inline-flex">Notifications</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            @if (ViewBag.Alert.Count > 0 && ViewBag.Alert != null)
+                            @if (ViewBag.Alert != null && ViewBag.Alert.Count > 0)
                             {
                                 foreach (Alert item in ViewBag.Alert)
                                 {
@@ -265,6 +268,10 @@
                             {
                                 <a href="#" class="dropdown-item text-center">No Alerts</a>
                             }
+                            Save the changes to your Razor view file.
+                            By following these steps, your Razor view will correctly check if ViewBag.Alert is null before accessing its properties, preventing the "Cannot perform runtime binding on a null reference" error. If ViewBag.Alert is not null and contains items, it will display the alerts; otherwise, it will display "No Alerts."
+
+
 
 
                         </div>

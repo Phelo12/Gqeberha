@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GqeberhaClinic.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231022175516_addContrceptives121233")]
-    partial class addContrceptives121233
+    [Migration("20231026232430_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,9 @@ namespace GqeberhaClinic.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
@@ -321,6 +324,47 @@ namespace GqeberhaClinic.Migrations
                     b.ToTable("ContraceptivePrescription");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.Counselling_Sessions", b =>
+                {
+                    b.Property<int>("SessionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SessionID"), 1L, 1);
+
+                    b.Property<int?>("AppointmentID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CounsellorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SessionCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SessionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SessionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SessionID");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.HasIndex("CounsellorID");
+
+                    b.ToTable("Counselling_Sessions");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.Property<int>("ScreeningID")
@@ -410,6 +454,12 @@ namespace GqeberhaClinic.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -686,9 +736,6 @@ namespace GqeberhaClinic.Migrations
                     b.Property<string>("ReferredTo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReferringDoctor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ReferralId");
 
                     b.HasIndex("NurseID");
@@ -729,6 +776,34 @@ namespace GqeberhaClinic.Migrations
                     b.HasKey("caseID");
 
                     b.ToTable("ReportCases");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Session_Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AppointmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FeedbackText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentID");
+
+                    b.ToTable("Session_Feedback");
                 });
 
             modelBuilder.Entity("GqeberhaClinic.Models.UserInformation", b =>
@@ -992,6 +1067,25 @@ namespace GqeberhaClinic.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("GqeberhaClinic.Models.Counselling_Sessions", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Models.Appointments", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "Counsellor")
+                        .WithMany()
+                        .HasForeignKey("CounsellorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("Counsellor");
+                });
+
             modelBuilder.Entity("GqeberhaClinic.Models.FamilyPlanning_Screening", b =>
                 {
                     b.HasOne("GqeberhaClinic.Areas.Identity.Data.GqebheraUser", "MainUser")
@@ -1101,6 +1195,17 @@ namespace GqeberhaClinic.Migrations
                     b.Navigation("ContraceptivePlan");
 
                     b.Navigation("Nurse");
+                });
+
+            modelBuilder.Entity("GqeberhaClinic.Models.Session_Feedback", b =>
+                {
+                    b.HasOne("GqeberhaClinic.Models.Appointments", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

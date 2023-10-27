@@ -1,4 +1,5 @@
 ﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Counselling_Sessions
 @{
     ViewData["Title"] = "Patient";
     Layout = "~/Views/Shared/_Counselling.cshtml";
@@ -127,9 +128,8 @@
             </div>
         </div>
 
-
-        <div class="table-responsive ">
-            <table id="MyTable" class="table">
+        <h5 class="text-center mt-3">List of all my Appointments</h5>
+         <table id="MyTable" class="table">
                 <thead class="table-dark">
                     <tr>
                         <th>
@@ -152,17 +152,17 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                                @item.CreatedDate
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Date_Time)
+                                @item.Date_Time
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.Reason)
+                                @item.Reason
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Status)
+                                @item.Status
                             </td>
 
                            
@@ -174,7 +174,66 @@
                 var fromDateInput = document.getElementById('fromDate');
                 fromDateInput.min = new Date().toISOString().split('T')[0];
             </script>
-        </div>
+            <h5 class="text-center mt-3">List of all my Sessions</h5>
+            <table id="MyTable" class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>
+                            Counsellor Information
+                        </th>
+                        <th>
+                            Appointment Date Created
+                        </th>
+                        <th>
+                            Session Date
+                        </th>
+                        <th>
+                            Session Time
+                        </th>
+                        <th>
+                            Status
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Sessions != null && ViewBag.Sessions.Count > 0)
+                    {
+                        @foreach (Counselling_Sessions item in ViewBag.Sessions)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Counsellor.FirstName) @Html.DisplayFor(modelItem => item.Counsellor.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appointment.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SessionDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SessionTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Notes)
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">No sessions available.</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
     </div>
 </div>
 

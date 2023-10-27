@@ -1,0 +1,138 @@
+﻿@using GqeberhaClinic.Models
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Counselling.cshtml";
+}
+
+<div class="bg-primary ">
+    <h1 class="m-1 text-center text-white">Manage Sessions for Counselling</h1>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success text-center text-white p-1 round">
+        <h3 class="text-center text-white">@TempData["Success"]</h3>
+    </div>
+}
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Patient Information
+            </th>
+            <th>
+                Appointment Date Created
+            </th>
+            <th>
+                Session Date
+            </th>
+            <th>
+                Session Time
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Counselling_Sessions item in ViewBag.Sessions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.Patient.FirstName) @Html.DisplayFor(modelItem => item.Appointment.Patient.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (item.Status == "New")
+                    {
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.SessionID">
+                            Open Session
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-@item.SessionID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.SessionID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="exampleModalLabel-@item.SessionID">Start session</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Confirm to Open the Session</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" asp-action="Open_Session" asp-route-id="@item.SessionID">Start Session</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#Delete-@item.SessionID">
+                            Delete Session
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="Delete-@item.SessionID" tabindex="-1" aria-labelledby="DeleteModalLabel-@item.SessionID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="DeleteModalLabel-@item.SessionID">Confirmation for Deleting</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Are you sure you wan to delete this Session?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SessionID">Delete Session</a> |
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (item.Status == "Session Opened")
+                    {
+                        <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.SessionID">
+                            Close Session
+                        </button>
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-@item.SessionID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.SessionID" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center" id="exampleModalLabel-@item.SessionID">Close the session</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Confirm to Close the Session</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a class="btn btn-primary" asp-action="Close_Session" asp-route-id="@item.SessionID">Close Session</a> |
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-controller="Session_Feedback" asp-action="Index" asp-route-id="@item.SessionID">View Session Feedback</a>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

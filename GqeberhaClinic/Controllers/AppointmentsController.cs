@@ -133,7 +133,7 @@ namespace GqeberhaClinic.Controllers
                           $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                           $"<div class='footer'>" +
                           $" <p>Thank you,</p>" +
-                          $" <p>Enompilo health care Team</p>" +
+                          $" <p>Gqeberha Clinic Team</p>" +
                           $"</div>" +
                           $" </body>" +
                           $"</html>");
@@ -172,7 +172,7 @@ namespace GqeberhaClinic.Controllers
                           $"</head>" +
                           $"<body>" +
                           $"" +
-                          $"<h1>Enompilo Health Care!</h1>" +
+                          $"<h1>Gqeberha Clinic Care!</h1>" +
                           $"<p></p>" +
                           $"<p>This is Notificatio Email About Appointments</p>" +
                           $"<strong><p>Appointment Date: {appointments.Date_Time}</p></strong>" +
@@ -181,7 +181,7 @@ namespace GqeberhaClinic.Controllers
                           $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                           $"<div class='footer'>" +
                           $" <p>Thank you,</p>" +
-                          $" <p>Enompilo health care Team</p>" +
+                          $" <p>Gqeberha Clinic Team</p>" +
                           $"</div>" +
                           $" </body>" +
                           $"</html>");
@@ -246,7 +246,7 @@ namespace GqeberhaClinic.Controllers
                       $"</head>" +
                       $"<body>" +
                       $"" +
-                      $"<h1>Enompilo Health Care!</h1>" +
+                      $"<h1>Gqeberha Clinic Care!</h1>" +
                       $"<p></p>" +
                       $"<p>This is Notificatio Email About Appointments</p>" +
                       $"<strong><p>Appointment Date: {appointments.Date_Time}</p></strong>" +
@@ -255,7 +255,7 @@ namespace GqeberhaClinic.Controllers
                       $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                       $"<div class='footer'>" +
                       $" <p>Thank you,</p>" +
-                      $" <p>Enompilo health care Team</p>" +
+                      $" <p>Gqeberha Clinic Team</p>" +
                       $"</div>" +
                       $" </body>" +
                       $"</html>");
@@ -316,7 +316,7 @@ namespace GqeberhaClinic.Controllers
                       $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                       $"<div class='footer'>" +
                       $" <p>Thank you,</p>" +
-                      $" <p>Enompilo health care Team</p>" +
+                      $" <p>Gqeberha Clinic Team</p>" +
                       $"</div>" +
                       $" </body>" +
                       $"</html>"
@@ -380,7 +380,7 @@ namespace GqeberhaClinic.Controllers
                           $"</head>" +
                           $"<body>" +
                           $"" +
-                          $"<h1>Enompilo Health Care!</h1>" +
+                          $"<h1>Gqeberha Clinic Care!</h1>" +
                           $"<p></p>" +
                           $"<p>This is Notificatio Email About Appointments</p>" +
                           $"<strong><p>Appointment Date and Time: {appointments.Date_Time}</p></strong>" +
@@ -390,7 +390,7 @@ namespace GqeberhaClinic.Controllers
                           $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                           $"<div class='footer'>" +
                           $" <p>Thank you,</p>" +
-                          $" <p>Enompilo health care Team</p>" +
+                          $" <p>Gqeberha Clinic Team</p>" +
                           $"</div>" +
                           $" </body>" +
                           $"</html>"
@@ -448,7 +448,7 @@ namespace GqeberhaClinic.Controllers
                           $"</head>" +
                           $"<body>" +
                           $"" +
-                          $"<h1>Enompilo Health Care!</h1>" +
+                          $"<h1>Gqeberha Clinic Care!</h1>" +
                           $"<p></p>" +
                           $"<p>This is Notificatio Email About Appointments</p>" +
                           $"<strong><p>Appointment Date and Time: {appointments.Date_Time}</p></strong>" +
@@ -458,7 +458,7 @@ namespace GqeberhaClinic.Controllers
                           $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team at {supportEmail}.</p>" +
                           $"<div class='footer'>" +
                           $" <p>Thank you,</p>" +
-                          $" <p>Enompilo health care Team</p>" +
+                          $" <p>Gqeberha Clinic Team</p>" +
                           $"</div>" +
                           $" </body>" +
                           $"</html>"
@@ -647,7 +647,7 @@ namespace GqeberhaClinic.Controllers
                         $"<p>If you have any questions or need assistance, please don't hesitate to contact our support team</p>" +
                         $"<div class='footer'>" +
                         $" <p>Thank you,</p>" +
-                        $" <p>Healthcare Team</p>" +
+                        $" <p>Gqeberha Clinic Team</p>" +
                         $"</div>" +
                         $" </body>" +
                         $"</html>");
@@ -714,7 +714,7 @@ namespace GqeberhaClinic.Controllers
                     $"<p>If you have any questions, please don't hesitate to contact our team</p>" +
                     $"<div class='footer'>" +
                     $" <p>Thank you,</p>" +
-                    $" <p>MedicalLifeHealthCare Team</p>" +
+                    $" <p>Gqeberha Clinic Team</p>" +
                     $"</div>" +
                     $" </body>" +
                     $"</html>");

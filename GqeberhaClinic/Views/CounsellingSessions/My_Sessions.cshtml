@@ -1,5 +1,141 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using GqeberhaClinic.Models
+@model GqeberhaClinic.Models.Session_Feedback
+
+
 @{
+    ViewData["Title"] = "Sessions";
+    Layout = "~/Views/Shared/_Counselling.cshtml";
 }
+<div class="bg-primary ">
+    <h1 class="m-1 text-center text-white">My Sessions for Counselling</h1>
+</div>
+<a asp-action="Create" asp-controller="CounsellingSessions" class="btn btn-primary mb-1">
+    Create Session
+</a>
+@* <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create Session
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Session For a Patient</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <partial name="/Views/CounsellingSessions/Create.cshtml" />
+            </div>
+        </div>
+    </div>
+</div> *@
+
+<!-- Button trigger modal -->
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success text-center text-white p-1 round">
+        <h3 class="text-center text-white">@TempData["Success"]</h3>
+    </div>
+}
+<!-- Button trigger modal -->
+@if (TempData["Success"] != null)
+{
+    <div class="bg-success text-center text-white p-1 round">
+        <h3 class="text-center text-white">@TempData["Success"]</h3>
+    </div>
+}
+<table id="MyTable" class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Counsellor Information
+            </th>
+            <th>
+                Appointment Date Created
+            </th>
+            <th>
+                Session Date
+            </th>
+            <th>
+                Session Time
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Counselling_Sessions item in ViewBag.Sessions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Counsellor.FirstName) @Html.DisplayFor(modelItem => item.Counsellor.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appointment.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SessionTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                   
+                    
+                        @if (item.Status == "Session Closed")
+                        {
+
+
+                            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal-@item.SessionID">
+                                Provide Feedback
+                            </button>
+                            <!-- Button trigger modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal-@item.SessionID" tabindex="-1" aria-labelledby="exampleModalLabel-@item.SessionID" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center" id="exampleModalLabel-@item.SessionID">Close the session</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <form asp-controller="Session_Feedback" asp-action="Create">
+                                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label hidden asp-for="SessionID" class="control-label"></label>
+                                                            <input hidden value="@item.SessionID" asp-for="SessionID" class="form-control" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="FeedbackText" class="control-label"></label>
+                                                            <textarea asp-for="FeedbackText" class="form-control" placeholder="Provide session feedback here"></textarea>
+                                                            <span asp-validation-for="FeedbackText" class="text-danger"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <input type="submit" value="Add Feedback" class="btn btn-primary" />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

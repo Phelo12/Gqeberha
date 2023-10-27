@@ -11,6 +11,7 @@ namespace GqeberhaClinic.Models
         public string? Message { get; set; }
         public string? Date { get; set; }
         public string? Status { get; set; }
+        public string? Reason { get; set; }
         public int  LastView { get; set; }
         public string? Role { get; set; }
         public string? IntendedUser { get; set; }

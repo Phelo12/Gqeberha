@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GqeberhaClinic.Migrations
 {
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,7 @@ namespace GqeberhaClinic.Migrations
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastView = table.Column<int>(type: "int", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IntendedUser = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -85,6 +86,30 @@ namespace GqeberhaClinic.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contraceptive",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    DurationOfEffectiveness = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    MethodOfUse = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    EfficacyRate = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    SideEffects = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Benefits = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Cost = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Contraindications = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Reversibility = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    StorageInstructions = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    AdditionalNotes = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contraceptive", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Feedbacks",
                 columns: table => new
                 {
@@ -92,7 +117,9 @@ namespace GqeberhaClinic.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SessionID = table.Column<int>(type: "int", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -295,6 +322,32 @@ namespace GqeberhaClinic.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ContraceptivePrescription",
+                columns: table => new
+                {
+                    PrescriptionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ContraceptiveName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrescribedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Dosage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Frequency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContraceptivePrescription", x => x.PrescriptionId);
+                    table.ForeignKey(
+                        name: "FK_ContraceptivePrescription_AspNetUsers_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FamilyPlanning_Screening",
                 columns: table => new
                 {
@@ -313,7 +366,8 @@ namespace GqeberhaClinic.Migrations
                     Question8 = table.Column<int>(type: "int", nullable: false),
                     Question9 = table.Column<int>(type: "int", nullable: false),
                     Question10 = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<int>(type: "int", nullable: false)
+                    Total = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -408,6 +462,87 @@ namespace GqeberhaClinic.Migrations
                         principalTable: "Appointments",
                         principalColumn: "AppointmentID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Counselling_Sessions",
+                columns: table => new
+                {
+                    SessionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SessionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SessionTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CounsellorID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppointmentID = table.Column<int>(type: "int", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Counselling_Sessions", x => x.SessionID);
+                    table.ForeignKey(
+                        name: "FK_Counselling_Sessions_Appointments_AppointmentID",
+                        column: x => x.AppointmentID,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Counselling_Sessions_AspNetUsers_CounsellorID",
+                        column: x => x.CounsellorID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Session_Feedback",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionID = table.Column<int>(type: "int", nullable: false),
+                    FeedbackText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AppointmentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Session_Feedback", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Session_Feedback_Appointments_AppointmentID",
+                        column: x => x.AppointmentID,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Referrals",
+                columns: table => new
+                {
+                    ReferralId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NurseID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReferralDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReasonForReferral = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReferredTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PreventionID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Referrals", x => x.ReferralId);
+                    table.ForeignKey(
+                        name: "FK_Referrals_AspNetUsers_NurseID",
+                        column: x => x.NurseID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Referrals_ContraceptivePrescription_PreventionID",
+                        column: x => x.PreventionID,
+                        principalTable: "ContraceptivePrescription",
+                        principalColumn: "PrescriptionId");
                 });
 
             migrationBuilder.CreateTable(
@@ -563,6 +698,21 @@ namespace GqeberhaClinic.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContraceptivePrescription_PatientId",
+                table: "ContraceptivePrescription",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Counselling_Sessions_AppointmentID",
+                table: "Counselling_Sessions",
+                column: "AppointmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Counselling_Sessions_CounsellorID",
+                table: "Counselling_Sessions",
+                column: "CounsellorID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FamilyPlanning_Screening_PatientID",
                 table: "FamilyPlanning_Screening",
                 column: "PatientID");
@@ -621,6 +771,21 @@ namespace GqeberhaClinic.Migrations
                 name: "IX_Records_NurseID",
                 table: "Records",
                 column: "NurseID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Referrals_NurseID",
+                table: "Referrals",
+                column: "NurseID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Referrals_PreventionID",
+                table: "Referrals",
+                column: "PreventionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Session_Feedback_AppointmentID",
+                table: "Session_Feedback",
+                column: "AppointmentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -650,6 +815,12 @@ namespace GqeberhaClinic.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Contraceptive");
+
+            migrationBuilder.DropTable(
+                name: "Counselling_Sessions");
+
+            migrationBuilder.DropTable(
                 name: "FamilyPlanning_Screening");
 
             migrationBuilder.DropTable(
@@ -665,7 +836,13 @@ namespace GqeberhaClinic.Migrations
                 name: "Records");
 
             migrationBuilder.DropTable(
+                name: "Referrals");
+
+            migrationBuilder.DropTable(
                 name: "ReportCases");
+
+            migrationBuilder.DropTable(
+                name: "Session_Feedback");
 
             migrationBuilder.DropTable(
                 name: "users");
@@ -677,9 +854,6 @@ namespace GqeberhaClinic.Migrations
                 name: "Vaccine_Education");
 
             migrationBuilder.DropTable(
-                name: "Appointments");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -687,6 +861,12 @@ namespace GqeberhaClinic.Migrations
 
             migrationBuilder.DropTable(
                 name: "Medical_File");
+
+            migrationBuilder.DropTable(
+                name: "ContraceptivePrescription");
+
+            migrationBuilder.DropTable(
+                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

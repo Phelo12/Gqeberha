@@ -1,0 +1,81 @@
+﻿@using GqeberhaClinic.Models
+@using Microsoft.AspNetCore.Identity
+@using GqeberhaClinic.Areas.Identity.Data
+
+@inject SignInManager<GqebheraUser> SignInManager
+@inject UserManager<GqebheraUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Counselling.cshtml";
+}
+
+<div id="mainDiv" class="p-2">
+    <div id="Header" class="bg-primary">
+        <h1 class="m-1 text-center text-white">
+            Report Sessions for Counselling
+        </h1>
+    </div>
+    <button id="btnPrint" class="btn btn-primary">
+        Generate report
+    </button>
+    <div id="Information" class="row">
+        <div class="col-8">
+            <img src="~/logos/3.png" style="width:200px" />
+            <p class="mt-3">Date of Report: @ViewBag.Date</p>
+            <p class="mt-3">Time of Report: @ViewBag.Time</p>
+        </div>
+        <div class="col-4 justify-content-md-end">
+            <h4>Patient Information</h4>
+            <p>First Name: @UserManager.GetUserAsync(User).Result.FirstName</p>
+            <p>Last Name: @UserManager.GetUserAsync(User).Result.LastName</p>
+            <p>Email Address: @UserManager.GetUserAsync(User).Result.Email</p>
+        </div>
+    </div>
+    <h3 class="text-center">
+        List of My Sessions
+    </h3>
+    <table id="MyTable" class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Counsellor Information
+                </th>
+                <th>
+                    Appointment Date Created
+                </th>
+                <th>
+                    Session Date
+                </th>
+                <th>
+                    Session Time
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody >
+            @foreach (Counselling_Sessions item in ViewBag.Sessions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Counsellor.FirstName) @Html.DisplayFor(modelItem => item.Counsellor.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Appointment.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SessionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SessionTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
